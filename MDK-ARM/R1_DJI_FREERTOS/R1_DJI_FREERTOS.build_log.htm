@@ -30,24 +30,24 @@ Warning: *** SUPPORT EXPIRED, NEW PRODUCT SERIAL NUMBER REQUIRED ***
          *** Running with Code Size Limit: 32K                   ***
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\MDK\ARM\ARMCC\Bin'
 Build target 'R1_DJI_FREERTOS'
-compiling freertos.c...
+compiling main.c...
 ..\UC\DJI.h(64): warning:  #1295-D: Deprecated declaration DJI_Init - give arg types
   void DJI_Init();
 ..\UC\DJI.h(68): warning:  #1-D: last line of file ends without a newline
   #endif
 ..\UC\Caculate.h(10): warning:  #1-D: last line of file ends without a newline
   #endif
-../Core/Src/freertos.c(176): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-      if((Raw_Data.ch2-1024)>100) pitch += 0.8;/*==================================================================*/
-../Core/Src/freertos.c(177): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if((Raw_Data.ch2-1024)<-100) pitch -= 0.8;/*==================================================================*/
-../Core/Src/freertos.c(178): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if((Raw_Data.ch3-1024)>100) yaw += 0.8;/*==================================================================*/
-../Core/Src/freertos.c(179): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if((Raw_Data.ch3-1024)<-100) yaw -= 0.8;/*==================================================================*/
-../Core/Src/freertos.c: 7 warnings, 0 errors
+../Core/Src/main.c(127): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if((Raw_Data.ch2-1024)>100) pitch += 0.15;/*==================================================================*/
+../Core/Src/main.c(128): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if((Raw_Data.ch2-1024)<-100) pitch -= 0.15;/*==================================================================*/
+../Core/Src/main.c(129): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
+../Core/Src/main.c(130): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
+../Core/Src/main.c: 7 warnings, 0 errors
 linking...
-Program Size: Code=13072 RO-data=612 RW-data=152 ZI-data=18608  
+Program Size: Code=10520 RO-data=492 RW-data=120 ZI-data=2648  
 FromELF: creating hex file...
 "R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 8 Warning(s).
 

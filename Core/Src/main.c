@@ -50,7 +50,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+float speed = 0;
+float pitch = 0;
+float yaw = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -113,18 +115,46 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();
+//  MX_FREERTOS_Init();
   /* Start scheduler */
-  osKernelStart();
+//  osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		if((Raw_Data.ch2-1024)>100) pitch += 0.15;/*==================================================================*/
+		if((Raw_Data.ch2-1024)<-100) pitch -= 0.15;/*==================================================================*/
+		if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
+		if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
+		
+		positionServo(yaw,&hDJI[5]);/*==================================================================*/
+    positionServo(pitch,&hDJI[6]);/*==================================================================*/
+		
+		if(Raw_Data.right == 1) speed = 500;
+    else speed = 0;
+		
+		speedServo(speed,&hDJI[0]);/*==================================================================*/
+    speedServo(speed,&hDJI[1]);/*==================================================================*/
+    speedServo(-speed,&hDJI[2]);/*==================================================================*/
+    speedServo(-speed,&hDJI[3]);/*==================================================================*/
+		
+		CanTransmit_DJI_1234(&hcan1,
+                             hDJI[0].speedPID.output,
+                             hDJI[1].speedPID.output,
+                             hDJI[2].speedPID.output,
+                             hDJI[3].speedPID.output);
+														 
+		CanTransmit_DJI_5678(&hcan1,
+                             hDJI[4].speedPID.output,
+                             hDJI[5].speedPID.output,
+                             hDJI[6].speedPID.output,
+                             hDJI[7].speedPID.output);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		HAL_Delay(1);
   }
   /* USER CODE END 3 */
 }
