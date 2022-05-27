@@ -37,19 +37,23 @@ compiling main.c...
   #endif
 ..\UC\Caculate.h(10): warning:  #1-D: last line of file ends without a newline
   #endif
-../Core/Src/main.c(127): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if((Raw_Data.ch2-1024)>100) pitch += 0.15;/*==================================================================*/
-../Core/Src/main.c(128): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if((Raw_Data.ch2-1024)<-100) pitch -= 0.15;/*==================================================================*/
 ../Core/Src/main.c(129): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
+  		if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
 ../Core/Src/main.c(130): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
+../Core/Src/main.c(131): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
+../Core/Src/main.c(132): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
-../Core/Src/main.c: 7 warnings, 0 errors
+../Core/Src/main.c(133): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if((Raw_Data.ch0-1024)>100) fetch -= 0.15;/*==================================================================*/
+../Core/Src/main.c(134): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		if((Raw_Data.ch0-1024)<-100) fetch += 0.15;/*==================================================================*/
+../Core/Src/main.c: 9 warnings, 0 errors
 linking...
-Program Size: Code=10520 RO-data=492 RW-data=120 ZI-data=2648  
+Program Size: Code=10604 RO-data=492 RW-data=120 ZI-data=2648  
 FromELF: creating hex file...
-"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 8 Warning(s).
+"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 10 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -73,7 +77,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.4.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>

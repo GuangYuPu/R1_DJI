@@ -32,7 +32,7 @@ Section Cross References
     main.o(i.main) refers to dji.o(i.DJI_Init) for DJI_Init
     main.o(i.main) refers to stm32f4xx_hal_uart.o(i.HAL_UART_Receive_DMA) for HAL_UART_Receive_DMA
     main.o(i.main) refers to f2d.o(.text) for __aeabi_f2d
-    main.o(i.main) refers to dadd.o(.text) for __aeabi_dadd
+    main.o(i.main) refers to dadd.o(.text) for __aeabi_dsub
     main.o(i.main) refers to d2f.o(.text) for __aeabi_d2f
     main.o(i.main) refers to caculate.o(i.positionServo) for positionServo
     main.o(i.main) refers to caculate.o(i.speedServo) for speedServo
@@ -1539,41 +1539,41 @@ Image Symbol Table
     i.__scatterload_zeroinit                 0x0800267e   Section       14  handlers.o(i.__scatterload_zeroinit)
     i.get_dji_offset                         0x0800268c   Section        0  dji.o(i.get_dji_offset)
     i.main                                   0x080026c0   Section        0  main.o(i.main)
-    i.positionServo                          0x080028b4   Section        0  caculate.o(i.positionServo)
-    i.prvResetNextTaskUnblockTime            0x080028e8   Section        0  tasks.o(i.prvResetNextTaskUnblockTime)
-    prvResetNextTaskUnblockTime              0x080028e9   Thumb Code    26  tasks.o(i.prvResetNextTaskUnblockTime)
-    i.speedServo                             0x08002908   Section        0  caculate.o(i.speedServo)
-    i.uxListRemove                           0x0800291a   Section        0  list.o(i.uxListRemove)
-    i.vListInsertEnd                         0x08002940   Section        0  list.o(i.vListInsertEnd)
-    i.vTaskSwitchContext                     0x08002958   Section        0  tasks.o(i.vTaskSwitchContext)
-    i.xPortSysTickHandler                    0x080029b4   Section        0  port.o(i.xPortSysTickHandler)
-    i.xTaskGetSchedulerState                 0x080029e0   Section        0  tasks.o(i.xTaskGetSchedulerState)
-    i.xTaskIncrementTick                     0x080029fc   Section        0  tasks.o(i.xTaskIncrementTick)
-    .constdata                               0x08002ac4   Section        8  stm32f4xx_hal_dma.o(.constdata)
-    flagBitshiftOffset                       0x08002ac4   Data           8  stm32f4xx_hal_dma.o(.constdata)
-    .constdata                               0x08002acc   Section       16  system_stm32f4xx.o(.constdata)
-    .constdata                               0x08002adc   Section        8  system_stm32f4xx.o(.constdata)
-    .data                                    0x20000000   Section       12  main.o(.data)
-    .data                                    0x2000000c   Section       12  stm32f4xx_hal.o(.data)
-    .data                                    0x20000018   Section        4  system_stm32f4xx.o(.data)
-    .data                                    0x2000001c   Section       60  tasks.o(.data)
-    pxDelayedTaskList                        0x20000020   Data           4  tasks.o(.data)
-    pxOverflowDelayedTaskList                0x20000024   Data           4  tasks.o(.data)
-    uxDeletedTasksWaitingCleanUp             0x20000028   Data           4  tasks.o(.data)
-    uxCurrentNumberOfTasks                   0x2000002c   Data           4  tasks.o(.data)
-    xTickCount                               0x20000030   Data           4  tasks.o(.data)
-    uxTopReadyPriority                       0x20000034   Data           4  tasks.o(.data)
-    xSchedulerRunning                        0x20000038   Data           4  tasks.o(.data)
-    uxPendedTicks                            0x2000003c   Data           4  tasks.o(.data)
-    xYieldPending                            0x20000040   Data           4  tasks.o(.data)
-    xNumOfOverflows                          0x20000044   Data           4  tasks.o(.data)
-    uxTaskNumber                             0x20000048   Data           4  tasks.o(.data)
-    xNextTaskUnblockTime                     0x2000004c   Data           4  tasks.o(.data)
-    xIdleTaskHandle                          0x20000050   Data           4  tasks.o(.data)
-    uxSchedulerSuspended                     0x20000054   Data           4  tasks.o(.data)
-    .data                                    0x20000058   Section        4  dji.o(.data)
-    TxMailbox                                0x20000058   Data           4  dji.o(.data)
-    .data                                    0x2000005c   Section        8  wtr_can.o(.data)
+    i.positionServo                          0x08002908   Section        0  caculate.o(i.positionServo)
+    i.prvResetNextTaskUnblockTime            0x0800293c   Section        0  tasks.o(i.prvResetNextTaskUnblockTime)
+    prvResetNextTaskUnblockTime              0x0800293d   Thumb Code    26  tasks.o(i.prvResetNextTaskUnblockTime)
+    i.speedServo                             0x0800295c   Section        0  caculate.o(i.speedServo)
+    i.uxListRemove                           0x0800296e   Section        0  list.o(i.uxListRemove)
+    i.vListInsertEnd                         0x08002994   Section        0  list.o(i.vListInsertEnd)
+    i.vTaskSwitchContext                     0x080029ac   Section        0  tasks.o(i.vTaskSwitchContext)
+    i.xPortSysTickHandler                    0x08002a08   Section        0  port.o(i.xPortSysTickHandler)
+    i.xTaskGetSchedulerState                 0x08002a34   Section        0  tasks.o(i.xTaskGetSchedulerState)
+    i.xTaskIncrementTick                     0x08002a50   Section        0  tasks.o(i.xTaskIncrementTick)
+    .constdata                               0x08002b18   Section        8  stm32f4xx_hal_dma.o(.constdata)
+    flagBitshiftOffset                       0x08002b18   Data           8  stm32f4xx_hal_dma.o(.constdata)
+    .constdata                               0x08002b20   Section       16  system_stm32f4xx.o(.constdata)
+    .constdata                               0x08002b30   Section        8  system_stm32f4xx.o(.constdata)
+    .data                                    0x20000000   Section       16  main.o(.data)
+    .data                                    0x20000010   Section       12  stm32f4xx_hal.o(.data)
+    .data                                    0x2000001c   Section        4  system_stm32f4xx.o(.data)
+    .data                                    0x20000020   Section       60  tasks.o(.data)
+    pxDelayedTaskList                        0x20000024   Data           4  tasks.o(.data)
+    pxOverflowDelayedTaskList                0x20000028   Data           4  tasks.o(.data)
+    uxDeletedTasksWaitingCleanUp             0x2000002c   Data           4  tasks.o(.data)
+    uxCurrentNumberOfTasks                   0x20000030   Data           4  tasks.o(.data)
+    xTickCount                               0x20000034   Data           4  tasks.o(.data)
+    uxTopReadyPriority                       0x20000038   Data           4  tasks.o(.data)
+    xSchedulerRunning                        0x2000003c   Data           4  tasks.o(.data)
+    uxPendedTicks                            0x20000040   Data           4  tasks.o(.data)
+    xYieldPending                            0x20000044   Data           4  tasks.o(.data)
+    xNumOfOverflows                          0x20000048   Data           4  tasks.o(.data)
+    uxTaskNumber                             0x2000004c   Data           4  tasks.o(.data)
+    xNextTaskUnblockTime                     0x20000050   Data           4  tasks.o(.data)
+    xIdleTaskHandle                          0x20000054   Data           4  tasks.o(.data)
+    uxSchedulerSuspended                     0x20000058   Data           4  tasks.o(.data)
+    .data                                    0x2000005c   Section        4  dji.o(.data)
+    TxMailbox                                0x2000005c   Data           4  dji.o(.data)
+    .data                                    0x20000060   Section        8  wtr_can.o(.data)
     .data                                    0x20000068   Section       16  wtr_uart.o(.data)
     .bss                                     0x20000078   Section       40  can.o(.bss)
     .bss                                     0x200000a0   Section      160  usart.o(.bss)
@@ -1812,28 +1812,29 @@ Image Symbol Table
     __scatterload_null                       0x0800267d   Thumb Code     2  handlers.o(i.__scatterload_null)
     __scatterload_zeroinit                   0x0800267f   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
     get_dji_offset                           0x0800268d   Thumb Code    46  dji.o(i.get_dji_offset)
-    main                                     0x080026c1   Thumb Code   458  main.o(i.main)
-    positionServo                            0x080028b5   Thumb Code    50  caculate.o(i.positionServo)
-    speedServo                               0x08002909   Thumb Code    18  caculate.o(i.speedServo)
-    uxListRemove                             0x0800291b   Thumb Code    38  list.o(i.uxListRemove)
-    vListInsertEnd                           0x08002941   Thumb Code    24  list.o(i.vListInsertEnd)
-    vTaskSwitchContext                       0x08002959   Thumb Code    82  tasks.o(i.vTaskSwitchContext)
-    xPortSysTickHandler                      0x080029b5   Thumb Code    38  port.o(i.xPortSysTickHandler)
-    xTaskGetSchedulerState                   0x080029e1   Thumb Code    22  tasks.o(i.xTaskGetSchedulerState)
-    xTaskIncrementTick                       0x080029fd   Thumb Code   192  tasks.o(i.xTaskIncrementTick)
-    AHBPrescTable                            0x08002acc   Data          16  system_stm32f4xx.o(.constdata)
-    APBPrescTable                            0x08002adc   Data           8  system_stm32f4xx.o(.constdata)
-    Region$$Table$$Base                      0x08002ae4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08002b04   Number         0  anon$$obj.o(Region$$Table)
+    main                                     0x080026c1   Thumb Code   544  main.o(i.main)
+    positionServo                            0x08002909   Thumb Code    50  caculate.o(i.positionServo)
+    speedServo                               0x0800295d   Thumb Code    18  caculate.o(i.speedServo)
+    uxListRemove                             0x0800296f   Thumb Code    38  list.o(i.uxListRemove)
+    vListInsertEnd                           0x08002995   Thumb Code    24  list.o(i.vListInsertEnd)
+    vTaskSwitchContext                       0x080029ad   Thumb Code    82  tasks.o(i.vTaskSwitchContext)
+    xPortSysTickHandler                      0x08002a09   Thumb Code    38  port.o(i.xPortSysTickHandler)
+    xTaskGetSchedulerState                   0x08002a35   Thumb Code    22  tasks.o(i.xTaskGetSchedulerState)
+    xTaskIncrementTick                       0x08002a51   Thumb Code   192  tasks.o(i.xTaskIncrementTick)
+    AHBPrescTable                            0x08002b20   Data          16  system_stm32f4xx.o(.constdata)
+    APBPrescTable                            0x08002b30   Data           8  system_stm32f4xx.o(.constdata)
+    Region$$Table$$Base                      0x08002b38   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08002b58   Number         0  anon$$obj.o(Region$$Table)
     speed                                    0x20000000   Data           4  main.o(.data)
     pitch                                    0x20000004   Data           4  main.o(.data)
     yaw                                      0x20000008   Data           4  main.o(.data)
-    uwTickFreq                               0x2000000c   Data           1  stm32f4xx_hal.o(.data)
-    uwTickPrio                               0x20000010   Data           4  stm32f4xx_hal.o(.data)
-    uwTick                                   0x20000014   Data           4  stm32f4xx_hal.o(.data)
-    SystemCoreClock                          0x20000018   Data           4  system_stm32f4xx.o(.data)
-    pxCurrentTCB                             0x2000001c   Data           4  tasks.o(.data)
-    CanReceiveData                           0x2000005c   Data           8  wtr_can.o(.data)
+    fetch                                    0x2000000c   Data           4  main.o(.data)
+    uwTickFreq                               0x20000010   Data           1  stm32f4xx_hal.o(.data)
+    uwTickPrio                               0x20000014   Data           4  stm32f4xx_hal.o(.data)
+    uwTick                                   0x20000018   Data           4  stm32f4xx_hal.o(.data)
+    SystemCoreClock                          0x2000001c   Data           4  system_stm32f4xx.o(.data)
+    pxCurrentTCB                             0x20000020   Data           4  tasks.o(.data)
+    CanReceiveData                           0x20000060   Data           8  wtr_can.o(.data)
     angMax                                   0x20000068   Data           8  wtr_uart.o(.data)
     posRef                                   0x20000070   Data           8  wtr_uart.o(.data)
     hcan1                                    0x20000078   Data          40  can.o(.bss)
@@ -1852,9 +1853,9 @@ Memory Map of the image
 
   Image Entry point : 0x080001ad
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00002b7c, Max: 0x00200000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00002bd0, Max: 0x00200000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00002b04, Max: 0x00200000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00002b58, Max: 0x00200000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1986,46 +1987,45 @@ Memory Map of the image
     0x0800267c   0x0800267c   0x00000002   Code   RO         3877    i.__scatterload_null  mc_w.l(handlers.o)
     0x0800267e   0x0800267e   0x0000000e   Code   RO         3878    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x0800268c   0x0800268c   0x00000034   Code   RO         3688    i.get_dji_offset    dji.o
-    0x080026c0   0x080026c0   0x000001f4   Code   RO           15    i.main              main.o
-    0x080028b4   0x080028b4   0x00000032   Code   RO         3639    i.positionServo     caculate.o
-    0x080028e6   0x080028e6   0x00000002   PAD
-    0x080028e8   0x080028e8   0x00000020   Code   RO         2828    i.prvResetNextTaskUnblockTime  tasks.o
-    0x08002908   0x08002908   0x00000012   Code   RO         3640    i.speedServo        caculate.o
-    0x0800291a   0x0800291a   0x00000026   Code   RO         2459    i.uxListRemove      list.o
-    0x08002940   0x08002940   0x00000018   Code   RO         2463    i.vListInsertEnd    list.o
-    0x08002958   0x08002958   0x0000005c   Code   RO         2852    i.vTaskSwitchContext  tasks.o
-    0x080029b4   0x080029b4   0x0000002c   Code   RO         3566    i.xPortSysTickHandler  port.o
-    0x080029e0   0x080029e0   0x0000001c   Code   RO         2859    i.xTaskGetSchedulerState  tasks.o
-    0x080029fc   0x080029fc   0x000000c8   Code   RO         2862    i.xTaskIncrementTick  tasks.o
-    0x08002ac4   0x08002ac4   0x00000008   Data   RO         1270    .constdata          stm32f4xx_hal_dma.o
-    0x08002acc   0x08002acc   0x00000010   Data   RO         2322    .constdata          system_stm32f4xx.o
-    0x08002adc   0x08002adc   0x00000008   Data   RO         2323    .constdata          system_stm32f4xx.o
-    0x08002ae4   0x08002ae4   0x00000020   Data   RO         3874    Region$$Table       anon$$obj.o
+    0x080026c0   0x080026c0   0x00000248   Code   RO           15    i.main              main.o
+    0x08002908   0x08002908   0x00000032   Code   RO         3639    i.positionServo     caculate.o
+    0x0800293a   0x0800293a   0x00000002   PAD
+    0x0800293c   0x0800293c   0x00000020   Code   RO         2828    i.prvResetNextTaskUnblockTime  tasks.o
+    0x0800295c   0x0800295c   0x00000012   Code   RO         3640    i.speedServo        caculate.o
+    0x0800296e   0x0800296e   0x00000026   Code   RO         2459    i.uxListRemove      list.o
+    0x08002994   0x08002994   0x00000018   Code   RO         2463    i.vListInsertEnd    list.o
+    0x080029ac   0x080029ac   0x0000005c   Code   RO         2852    i.vTaskSwitchContext  tasks.o
+    0x08002a08   0x08002a08   0x0000002c   Code   RO         3566    i.xPortSysTickHandler  port.o
+    0x08002a34   0x08002a34   0x0000001c   Code   RO         2859    i.xTaskGetSchedulerState  tasks.o
+    0x08002a50   0x08002a50   0x000000c8   Code   RO         2862    i.xTaskIncrementTick  tasks.o
+    0x08002b18   0x08002b18   0x00000008   Data   RO         1270    .constdata          stm32f4xx_hal_dma.o
+    0x08002b20   0x08002b20   0x00000010   Data   RO         2322    .constdata          system_stm32f4xx.o
+    0x08002b30   0x08002b30   0x00000008   Data   RO         2323    .constdata          system_stm32f4xx.o
+    0x08002b38   0x08002b38   0x00000020   Data   RO         3874    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM2 (Exec base: 0x10000000, Load base: 0x08002b7c, Size: 0x00000000, Max: 0x00010000, ABSOLUTE)
+    Execution Region RW_IRAM2 (Exec base: 0x10000000, Load base: 0x08002bd0, Size: 0x00000000, Max: 0x00010000, ABSOLUTE)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08002b04, Size: 0x00000ad0, Max: 0x00030000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08002b58, Size: 0x00000ad0, Max: 0x00030000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08002b04   0x0000000c   Data   RW           16    .data               main.o
-    0x2000000c   0x08002b10   0x0000000c   Data   RW         1717    .data               stm32f4xx_hal.o
-    0x20000018   0x08002b1c   0x00000004   Data   RW         2324    .data               system_stm32f4xx.o
-    0x2000001c   0x08002b20   0x0000003c   Data   RW         2871    .data               tasks.o
-    0x20000058   0x08002b5c   0x00000004   Data   RW         3690    .data               dji.o
-    0x2000005c   0x08002b60   0x00000008   Data   RW         3747    .data               wtr_can.o
-    0x20000064   0x08002b68   0x00000004   PAD
-    0x20000068   0x08002b6c   0x00000010   Data   RW         3786    .data               wtr_uart.o
+    0x20000000   0x08002b58   0x00000010   Data   RW           16    .data               main.o
+    0x20000010   0x08002b68   0x0000000c   Data   RW         1717    .data               stm32f4xx_hal.o
+    0x2000001c   0x08002b74   0x00000004   Data   RW         2324    .data               system_stm32f4xx.o
+    0x20000020   0x08002b78   0x0000003c   Data   RW         2871    .data               tasks.o
+    0x2000005c   0x08002bb4   0x00000004   Data   RW         3690    .data               dji.o
+    0x20000060   0x08002bb8   0x00000008   Data   RW         3747    .data               wtr_can.o
+    0x20000068   0x08002bc0   0x00000010   Data   RW         3786    .data               wtr_uart.o
     0x20000078        -       0x00000028   Zero   RW          305    .bss                can.o
     0x200000a0        -       0x000000a0   Zero   RW          371    .bss                usart.o
     0x20000140        -       0x000000f0   Zero   RW         2870    .bss                tasks.o
     0x20000230        -       0x00000480   Zero   RW         3689    .bss                dji.o
     0x200006b0        -       0x0000001e   Zero   RW         3785    .bss                wtr_uart.o
-    0x200006ce   0x08002b7c   0x00000002   PAD
+    0x200006ce   0x08002bd0   0x00000002   PAD
     0x200006d0        -       0x00000400   Zero   RW            1    STACK               startup_stm32f427xx.o
 
 
@@ -2043,7 +2043,7 @@ Image component sizes
          0          0          0          0          0      15744   event_groups.o
        124          8          0          0          0        955   gpio.o
         62          0          0          0          0       1692   list.o
-       664         52          0         12          0     726501   main.o
+       748         50          0         16          0     726587   main.o
        234         22          0          0          0       4022   port.o
         36          8        428          0       1024        836   startup_stm32f427xx.o
        180         28          0         12          0       9557   stm32f4xx_hal.o
@@ -2063,9 +2063,9 @@ Image component sizes
        236         46          0         16         30       2313   wtr_uart.o
 
     ----------------------------------------------------------------------
-      8990        562        492        120       2648     862656   Object Totals
+      9074        560        492        120       2648     862742   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        26          0          0          4          2          0   (incl. Padding)
+        26          0          0          0          2          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2118,15 +2118,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     10520        578        492        120       2648     855380   Grand Totals
-     10520        578        492        120       2648     855380   ELF Image Totals
-     10520        578        492        120          0          0   ROM Totals
+     10604        576        492        120       2648     855466   Grand Totals
+     10604        576        492        120       2648     855466   ELF Image Totals
+     10604        576        492        120          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                11012 (  10.75kB)
+    Total RO  Size (Code + RO Data)                11096 (  10.84kB)
     Total RW  Size (RW Data + ZI Data)              2768 (   2.70kB)
-    Total ROM Size (Code + RO Data + RW Data)      11132 (  10.87kB)
+    Total ROM Size (Code + RO Data + RW Data)      11216 (  10.95kB)
 
 ==============================================================================
 
