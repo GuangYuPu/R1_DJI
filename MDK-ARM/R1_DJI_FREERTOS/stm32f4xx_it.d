@@ -29,14 +29,7 @@ r1_dji_freertos\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ha
 r1_dji_freertos\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
 r1_dji_freertos\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 r1_dji_freertos\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+r1_dji_freertos\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
+r1_dji_freertos\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 r1_dji_freertos\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 r1_dji_freertos\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
-r1_dji_freertos\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h
-r1_dji_freertos\stm32f4xx_it.o: ../Core/Inc/FreeRTOSConfig.h
-r1_dji_freertos\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h
-r1_dji_freertos\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h
-r1_dji_freertos\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h
-r1_dji_freertos\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/portmacro.h
-r1_dji_freertos\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h
-r1_dji_freertos\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
-r1_dji_freertos\stm32f4xx_it.o: ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h

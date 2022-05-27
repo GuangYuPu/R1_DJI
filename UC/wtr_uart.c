@@ -3,6 +3,7 @@
 #include "string.h"
 #include "math.h"
 #include "usart.h"
+#include "nrf_com.h"
 
 Remote_t Raw_Data;
 uint8_t JoyStickReceiveData[18];
@@ -66,6 +67,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
     if(huart->Instance == huart1.Instance){
         UART1Decode();
         ;
+    }
+		
+		if(huart->Instance == huart6.Instance)
+    {
+        nrf_decode();
     }
 }
 

@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.48.0.0
  
 <h2>Project:</h2>
 D:\stm\DATA\LEARNING\R1_DJI_FREERTOS\MDK-ARM\R1_DJI_FREERTOS.uvprojx
-Project File Date:  05/19/2022
+Project File Date:  05/27/2022
 
 <h2>Output:</h2>
   
@@ -30,6 +30,36 @@ Warning: *** SUPPORT EXPIRED, NEW PRODUCT SERIAL NUMBER REQUIRED ***
          *** Running with Code Size Limit: 32K                   ***
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\MDK\ARM\ARMCC\Bin'
 Build target 'R1_DJI_FREERTOS'
+compiling wtr_uart.c...
+..\UC\DJI.h(64): warning:  #1295-D: Deprecated declaration DJI_Init - give arg types
+  void DJI_Init();
+..\UC\DJI.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\UART_COM\nrf_com.h(39): warning:  #1295-D: Deprecated declaration nrf_Transmit_init - give arg types
+  void nrf_Transmit_init();
+..\UART_COM\nrf_com.h(40): warning:  #1295-D: Deprecated declaration send - give arg types
+  void send();
+..\UART_COM\nrf_com.h(41): warning:  #1295-D: Deprecated declaration nrf_receive_init - give arg types
+  void nrf_receive_init();
+..\UART_COM\nrf_com.h(42): warning:  #1295-D: Deprecated declaration nrf_decode - give arg types
+  void nrf_decode();
+..\UART_COM\nrf_com.h(44): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\UC\wtr_uart.c: 7 warnings, 0 errors
+compiling nrf_com.c...
+..\UART_COM\nrf_com.h(39): warning:  #1295-D: Deprecated declaration nrf_Transmit_init - give arg types
+  void nrf_Transmit_init();
+..\UART_COM\nrf_com.h(40): warning:  #1295-D: Deprecated declaration send - give arg types
+  void send();
+..\UART_COM\nrf_com.h(41): warning:  #1295-D: Deprecated declaration nrf_receive_init - give arg types
+  void nrf_receive_init();
+..\UART_COM\nrf_com.h(42): warning:  #1295-D: Deprecated declaration nrf_decode - give arg types
+  void nrf_decode();
+..\UART_COM\nrf_com.h(44): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\UART_COM\nrf_com.c(64): warning:  #1-D: last line of file ends without a newline
+  //}
+..\UART_COM\nrf_com.c: 6 warnings, 0 errors
 compiling main.c...
 ..\UC\DJI.h(64): warning:  #1295-D: Deprecated declaration DJI_Init - give arg types
   void DJI_Init();
@@ -37,23 +67,33 @@ compiling main.c...
   #endif
 ..\UC\Caculate.h(10): warning:  #1-D: last line of file ends without a newline
   #endif
-../Core/Src/main.c(129): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\UART_COM\nrf_com.h(39): warning:  #1295-D: Deprecated declaration nrf_Transmit_init - give arg types
+  void nrf_Transmit_init();
+..\UART_COM\nrf_com.h(40): warning:  #1295-D: Deprecated declaration send - give arg types
+  void send();
+..\UART_COM\nrf_com.h(41): warning:  #1295-D: Deprecated declaration nrf_receive_init - give arg types
+  void nrf_receive_init();
+..\UART_COM\nrf_com.h(42): warning:  #1295-D: Deprecated declaration nrf_decode - give arg types
+  void nrf_decode();
+..\UART_COM\nrf_com.h(44): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Core/Src/main.c(125): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
-../Core/Src/main.c(130): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+../Core/Src/main.c(126): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
-../Core/Src/main.c(131): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+../Core/Src/main.c(127): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
-../Core/Src/main.c(132): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+../Core/Src/main.c(128): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
-../Core/Src/main.c(133): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+../Core/Src/main.c(129): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if((Raw_Data.ch0-1024)>100) fetch -= 0.15;/*==================================================================*/
-../Core/Src/main.c(134): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+../Core/Src/main.c(130): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   		if((Raw_Data.ch0-1024)<-100) fetch += 0.15;/*==================================================================*/
-../Core/Src/main.c: 9 warnings, 0 errors
+../Core/Src/main.c: 14 warnings, 0 errors
 linking...
-Program Size: Code=10604 RO-data=492 RW-data=120 ZI-data=2648  
+Program Size: Code=11386 RO-data=494 RW-data=76 ZI-data=2668  
 FromELF: creating hex file...
-"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 10 Warning(s).
+"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 28 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -77,7 +117,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.4.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:07
+Build Time Elapsed:  00:00:06
 </pre>
 </body>
 </html>

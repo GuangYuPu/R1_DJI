@@ -30,9 +30,12 @@ r1_dji_freertos\wtr_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_fl
 r1_dji_freertos\wtr_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
 r1_dji_freertos\wtr_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 r1_dji_freertos\wtr_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+r1_dji_freertos\wtr_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
+r1_dji_freertos\wtr_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 r1_dji_freertos\wtr_uart.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 r1_dji_freertos\wtr_uart.o: ..\UC\DJI.h
 r1_dji_freertos\wtr_uart.o: ../Core/Inc/can.h
 r1_dji_freertos\wtr_uart.o: D:\MDK\ARM\ARMCC\Bin\..\include\string.h
 r1_dji_freertos\wtr_uart.o: D:\MDK\ARM\ARMCC\Bin\..\include\math.h
 r1_dji_freertos\wtr_uart.o: ../Core/Inc/usart.h
+r1_dji_freertos\wtr_uart.o: ..\UART_COM\nrf_com.h

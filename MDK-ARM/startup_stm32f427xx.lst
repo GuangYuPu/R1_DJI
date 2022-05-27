@@ -865,12 +865,11 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
 interwork --depend=r1_dji_freertos\startup_stm32f427xx.d -or1_dji_freertos\star
-tup_stm32f427xx.o -I..\Core\Inc -I.\RTE\_R1_DJI_FREERTOS -ID:\MDK\ARM\PACK\ARM\
-CMSIS\5.7.0\CMSIS\Core\Include -ID:\MDK\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Driv
-ers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__MICROLIB SETA 1" --predefi
-ne="__UVISION_VERSION SETA 534" --predefine="_RTE_ SETA 1" --predefine="STM32F4
-27xx SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f427xx.lst startup_
-stm32f427xx.s
+tup_stm32f427xx.o -I.\RTE\_R1_DJI_FREERTOS -ID:\MDK\ARM\PACK\ARM\CMSIS\5.7.0\CM
+SIS\Core\Include -ID:\MDK\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Devi
+ce\ST\STM32F4xx\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_
+VERSION SETA 534" --predefine="_RTE_ SETA 1" --predefine="STM32F427xx SETA 1" -
+-predefine="_RTE_ SETA 1" --list=startup_stm32f427xx.lst startup_stm32f427xx.s
 
 
 
