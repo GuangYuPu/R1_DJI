@@ -4,6 +4,7 @@
 "r1_dji_freertos\gpio.o"
 "r1_dji_freertos\can.o"
 "r1_dji_freertos\dma.o"
+"r1_dji_freertos\tim.o"
 "r1_dji_freertos\usart.o"
 "r1_dji_freertos\stm32f4xx_it.o"
 "r1_dji_freertos\stm32f4xx_hal_msp.o"

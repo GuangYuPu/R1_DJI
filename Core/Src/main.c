@@ -9,10 +9,10 @@
   * <h2><center>&copy; Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
-  * This software component is licensed by ST under Ultimate Liberty license
-  * SLA0044, the "License"; You may not use this file except in compliance with
-  * the License. You may obtain a copy of the License at:
-  *                             www.st.com/SLA0044
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -21,6 +21,7 @@
 #include "main.h"
 #include "can.h"
 #include "dma.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -54,6 +55,10 @@ float speed = 0;
 float pitch = 0;
 float yaw = 0;
 float fetch = 0;
+
+float fetch_state = 0;
+uint32_t time = 0;
+uint32_t flag = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,8 +104,10 @@ int main(void)
   MX_CAN1_Init();
   MX_USART1_UART_Init();
   MX_USART6_UART_Init();
+  MX_TIM2_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-	CANFilterInit(&hcan1);
+ CANFilterInit(&hcan1);
 	
 	hDJI[0].motorType = M3508;
 	hDJI[1].motorType = M3508;
@@ -116,31 +123,80 @@ int main(void)
 	HAL_UART_Receive_DMA(&huart1,JoyStickReceiveData,18);
 	
 	nrf_Transmit_init();
+	
+	HAL_TIM_Base_Start_IT(&htim2);
+	HAL_TIM_Base_Start_IT(&htim3);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+    while (1)
   {
-		if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
-		if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
-		if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
-		if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
-		if((Raw_Data.ch0-1024)>100) fetch -= 0.15;/*==================================================================*/
-		if((Raw_Data.ch0-1024)<-100) fetch += 0.15;/*==================================================================*/
+		if(Raw_Data.left!=2)
+		{
+			if(Raw_Data.left!=1)
+			{
+			if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
+			if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
+			if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
+			if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
+			
+			if((Raw_Data.ch0-1024)>100) fetch = 100;/*==================================================================*/
+			else if((Raw_Data.ch0-1024)<-100) fetch = -100;/*==================================================================*/
+			else 	fetch = 0;
+			
+			if((Raw_Data.ch1-1024)>100) 
+			{
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
+			}
+			else if((Raw_Data.ch1-1024)<-100)
+			{
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+			}
+			else
+			{
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+			}
+			
+			positionServo(yaw,&hDJI[5]);/*==================================================================*/
+			positionServo(pitch,&hDJI[6]);/*==================================================================*/
+			speedServo(fetch,&hDJI[4]);/*==================================================================*/
+			
+			if(Raw_Data.right == 1) speed = 5000;
+			else speed = 0;
+			
+			speedServo(speed,&hDJI[0]);/*==================================================================*/
+			speedServo(speed,&hDJI[1]);/*==================================================================*/
+			speedServo(-speed,&hDJI[2]);/*==================================================================*/
+			speedServo(-speed,&hDJI[3]);/*==================================================================*/
+			speedServo(500,&hDJI[7]);/*==================================================================*/
+			}
+			else
+			{
+			speedServo(0,&hDJI[0]);
+			speedServo(0,&hDJI[1]);
+			speedServo(0,&hDJI[2]);
+			speedServo(0,&hDJI[3]);
+			speedServo(0,&hDJI[4]);
+			speedServo(0,&hDJI[5]);
+			speedServo(0,&hDJI[6]);
+			speedServo(0,&hDJI[7]);
+			}
+		}
 		
-		positionServo(yaw,&hDJI[5]);/*==================================================================*/
-    positionServo(pitch,&hDJI[6]);/*==================================================================*/
-		positionServo(fetch,&hDJI[4]);/*==================================================================*/
-		
-		if(Raw_Data.right == 1) speed = 500;
-    else speed = 0;
-		
-		speedServo(speed,&hDJI[0]);/*==================================================================*/
-    speedServo(speed,&hDJI[1]);/*==================================================================*/
-    speedServo(-speed,&hDJI[2]);/*==================================================================*/
-    speedServo(-speed,&hDJI[3]);/*==================================================================*/
-		speedServo(500,&hDJI[7]);/*==================================================================*/
+		else{
+			speedServo(0,&hDJI[0]);
+			speedServo(0,&hDJI[1]);
+			speedServo(0,&hDJI[2]);
+			speedServo(0,&hDJI[3]);
+			speedServo(fetch_state,&hDJI[4]);
+			speedServo(0,&hDJI[5]);
+			speedServo(0,&hDJI[6]);
+			speedServo(0,&hDJI[7]);
+		}
 		
 		CanTransmit_DJI_1234(&hcan1,
                              hDJI[0].speedPID.output,
@@ -234,7 +290,44 @@ void SystemClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
-
+	if (htim == (&htim2))
+	{
+		time++;
+	}
+	if (htim == (&htim3))
+	{
+		uint32_t enter_time;
+		if(Raw_Data.left == 2)
+		{
+			if(flag == 0){
+				enter_time = time;
+				flag++;
+			}
+			if((time - enter_time)<500)
+			{
+				fetch_state = 0;
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
+			}
+			else if((time - enter_time)<1500)
+			{
+				fetch_state = -100;
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+			}
+			else if((time - enter_time)<2000)
+			{
+				fetch_state = 0;
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+			}
+			else{
+				fetch_state = 0;
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+			}
+		}
+	}
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM4) {
     HAL_IncTick();

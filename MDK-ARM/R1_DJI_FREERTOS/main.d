@@ -34,6 +34,7 @@ r1_dji_freertos\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex
 r1_dji_freertos\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 r1_dji_freertos\main.o: ../Core/Inc/can.h
 r1_dji_freertos\main.o: ../Core/Inc/dma.h
+r1_dji_freertos\main.o: ../Core/Inc/tim.h
 r1_dji_freertos\main.o: ../Core/Inc/usart.h
 r1_dji_freertos\main.o: ../Core/Inc/gpio.h
 r1_dji_freertos\main.o: ..\UC\Caculate.h
