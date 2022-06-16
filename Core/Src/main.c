@@ -58,7 +58,20 @@ float fetch = 0;
 
 float fetch_state = 0;
 uint32_t time = 0;
-uint32_t flag = 0;
+uint32_t enter_time = 0;
+
+uint32_t sj_time = 750;
+uint32_t zz_time = 1000;
+float close_speed = -100;
+float open_speed = 50;
+
+/*状态机状态变量
+state = 0 状态0 遥控器控制中间状态 初始态及其他任何状态之间的连接态
+state = 1 状态1 全自动取球
+state = 2 状态2 全自动射球
+state = 3 状态3 准备取球*/
+uint32_t state = 0;
+uint32_t last_state = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -119,23 +132,24 @@ int main(void)
 	hDJI[7].motorType = M3508;
 	
 	DJI_Init();
-	
+	ifRecv = 0;
 	HAL_UART_Receive_DMA(&huart1,JoyStickReceiveData,18);
 	
 	nrf_Transmit_init();
 	
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
+  while (!ifRecv);
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
     while (1)
   {
-		if(Raw_Data.left!=2)
+		if(state == 0)
 		{
-			if(Raw_Data.left!=1)
-			{
+			
 			if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
 			if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
 			if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
@@ -172,22 +186,11 @@ int main(void)
 			speedServo(speed,&hDJI[1]);/*==================================================================*/
 			speedServo(-speed,&hDJI[2]);/*==================================================================*/
 			speedServo(-speed,&hDJI[3]);/*==================================================================*/
-			speedServo(500,&hDJI[7]);/*==================================================================*/
-			}
-			else
-			{
-			speedServo(0,&hDJI[0]);
-			speedServo(0,&hDJI[1]);
-			speedServo(0,&hDJI[2]);
-			speedServo(0,&hDJI[3]);
-			speedServo(0,&hDJI[4]);
-			speedServo(0,&hDJI[5]);
-			speedServo(0,&hDJI[6]);
-			speedServo(0,&hDJI[7]);
-			}
+			// speedServo(500,&hDJI[7]);/*==================================================================*/
+			
 		}
 		
-		else{
+		if(state == 1){
 			speedServo(0,&hDJI[0]);
 			speedServo(0,&hDJI[1]);
 			speedServo(0,&hDJI[2]);
@@ -214,13 +217,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-		nrfDataBag.ch0 = Raw_Data.ch0;
-		nrfDataBag.ch1 = Raw_Data.ch1;
-		nrfDataBag.ch2 = Raw_Data.ch2;
-		nrfDataBag.ch3 = Raw_Data.ch3;
-    nrfDataBag.left = Raw_Data.left;
-		nrfDataBag.right = Raw_Data.right;
-		send();
 		HAL_Delay(1);
   }
   /* USER CODE END 3 */
@@ -290,43 +286,98 @@ void SystemClock_Config(void)
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
-	if (htim == (&htim2))
+	/*维护系统时钟系统*/
+  if (htim == (&htim2))
 	{
 		time++;
 	}
+  /*有限机线程*/
 	if (htim == (&htim3))
 	{
-		uint32_t enter_time;
-		if(Raw_Data.left == 2)
+	  /*有限状态机状态转换*/	
+    
+    //由初始状态
+    if(state == 0 && last_state == 0)
 		{
-			if(flag == 0){
-				enter_time = time;
-				flag++;
+			if(0)//由初始态切换到状态1（全自动取球）的触发条件
+      {
+				state = 1;
 			}
-			if((time - enter_time)<500)
-			{
-				fetch_state = 0;
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
+      if(0)//由出初始态切换到状态2（全自动射球）的触发条件
+      {
+				state = 2;
 			}
-			else if((time - enter_time)<1500)
-			{
-				fetch_state = -100;
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-			}
-			else if((time - enter_time)<2000)
-			{
-				fetch_state = 0;
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-			}
-			else{
-				fetch_state = 0;
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+      if(0)//由初始态切换到状态3（准备取球）的触发条件
+      {
+				state = 3;
 			}
 		}
+    //由状态1（全自动取球）
+		if(state == 0 && last_state == 1)
+		{
+      if(0)//由状态1（全自动取球）切换到状态2（全自动射球）的触发条件
+      {
+				state = 2;
+			}
+      if(0)//由状态1（全自动取球）切换到状态3（准备取球）的触发条件
+      {
+				state = 3;
+			}
+		}
+    //由状态2（全自动射球）
+		if(state == 0 && last_state == 2)
+		{
+      if(0)//由状态2（全自动射球）切换到状态1（全自动取球）的触发条件
+      {
+				state = 1;
+			}
+      if(0)//由状态2（全自动射球）切换到状态3（准备取球）的触发条件
+      {
+				state = 3;
+			}
+		}
+    //由状态3（准备取球）
+		if(state == 0 && last_state == 3)
+		{
+      if(Raw_Data.left == 2)//由状态3（准备取球）切换到状态1（全自动取球）的触发条件
+      {
+        enter_time = time;
+				state = 1;
+        //状态1执行全自动取球
+        if(state == 1){
+          if((time - enter_time)<(zz_time))//open zhuazi --> close zhuazi
+          {
+            fetch_state = close_speed;
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+          }
+          else if((time - enter_time)<(zz_time+sj_time))//up shenjiang --> up shengjiang and open zhuazi a little
+          {
+            fetch_state = open_speed;
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
+          }
+          else if((time - enter_time)<(zz_time*2+sj_time))//close zhuazi
+          {
+            fetch_state = close_speed;
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+          }
+          else{
+            last_state = state;
+            state = 0;
+          }
+		}
+			}
+      if(0)//由状态3（准备取球）切换到状态2（全自动射球）的触发条件
+      {
+				state = 2;
+			}
+		}
+		
+    
+
+
 	}
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM4) {

@@ -24,4 +24,5 @@ typedef struct
 extern Remote_t Raw_Data;
 extern uint8_t JoyStickReceiveData[18];
 extern double posRef;
+extern int ifRecv;
 #endif
