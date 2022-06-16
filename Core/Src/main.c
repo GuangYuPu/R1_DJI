@@ -65,13 +65,14 @@ uint32_t zz_time = 1000;
 float close_speed = -100;
 float open_speed = 50;
 
+char flag = 0;//标志是否进入状态  
 /*状态机状态变量
 state = 0 状态0 遥控器控制中间状态 初始态及其他任何状态之间的连接态
 state = 1 状态1 全自动取球
 state = 2 状态2 全自动射球
 state = 3 状态3 准备取球*/
 uint32_t state = 0;
-uint32_t last_state = 0;
+uint32_t last_state = 3;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -297,7 +298,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	  /*有限状态机状态转换*/	
     
     //由初始状态
-    if(state == 0 && last_state == 0)
+    if(state == 0 && last_state == 0 || flag == 1)
 		{
 			if(0)//由初始态切换到状态1（全自动取球）的触发条件
       {
@@ -313,7 +314,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			}
 		}
     //由状态1（全自动取球）
-		if(state == 0 && last_state == 1)
+		if(state == 0 && last_state == 1 || flag == 1)
 		{
       if(0)//由状态1（全自动取球）切换到状态2（全自动射球）的触发条件
       {
@@ -325,7 +326,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			}
 		}
     //由状态2（全自动射球）
-		if(state == 0 && last_state == 2)
+		if(state == 0 && last_state == 2 || flag == 1)
 		{
       if(0)//由状态2（全自动射球）切换到状态1（全自动取球）的触发条件
       {
@@ -337,14 +338,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			}
 		}
     //由状态3（准备取球）
-		if(state == 0 && last_state == 3)
+		if((state == 0 && last_state == 3) || flag == 1)
 		{
-      if(Raw_Data.left == 2)//由状态3（准备取球）切换到状态1（全自动取球）的触发条件
+      if(Raw_Data.left == 2 && state == 0)//由状态3（准备取球）切换到状态1（全自动取球）的触发条件
       {
         enter_time = time;
 				state = 1;
+        flag = 1;
+			}
         //状态1执行全自动取球
-        if(state == 1){
+        if(state == 1)
+					{
           if((time - enter_time)<(zz_time))//open zhuazi --> close zhuazi
           {
             fetch_state = close_speed;
@@ -366,8 +370,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           else{
             last_state = state;
             state = 0;
+            flag = 0;
           }
-		}
+		
 			}
       if(0)//由状态3（准备取球）切换到状态2（全自动射球）的触发条件
       {
