@@ -47,17 +47,17 @@ compiling main.c...
   void nrf_decode();
 ..\UART_COM\nrf_com.h(44): warning:  #1-D: last line of file ends without a newline
   #endif
-../Core/Src/main.c(154): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
 ../Core/Src/main.c(155): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
+  			if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
 ../Core/Src/main.c(156): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
+  			if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
 ../Core/Src/main.c(157): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
+../Core/Src/main.c(158): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   			if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
 ../Core/Src/main.c: 12 warnings, 0 errors
 linking...
-Program Size: Code=16304 RO-data=492 RW-data=120 ZI-data=2800  
+Program Size: Code=16904 RO-data=492 RW-data=120 ZI-data=2800  
 FromELF: creating hex file...
 "R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 13 Warning(s).
 
@@ -83,7 +83,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.4.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
