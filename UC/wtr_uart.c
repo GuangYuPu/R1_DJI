@@ -62,18 +62,6 @@ void UART1Decode(){
     /* UART1 callback decode function  */
 }
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
-    ifRecv = 1;
 
-    if(huart->Instance == huart1.Instance){
-        UART1Decode();
-        ;
-    }
-		
-		if(huart->Instance == huart6.Instance)
-    {
-        nrf_decode();
-    }
-}
 
 

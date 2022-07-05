@@ -136,13 +136,13 @@ int main(void)
 	
 	DJI_Init();
 	ifRecv = 0;
-	HAL_UART_Receive_DMA(&huart1,JoyStickReceiveData,18);
+	//HAL_UART_Receive_DMA(&huart1,JoyStickReceiveData,18);
 	
-	nrf_Transmit_init();
+	nrf_receive_init();
 	
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
-  while (!ifRecv);
+  //while (!ifRecv);
   
   /* USER CODE END 2 */
 
@@ -297,7 +297,20 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+    
 
+//    if(huart->Instance == huart1.Instance){
+//        UART1Decode();
+//        ;
+//    }
+		
+		if(huart->Instance == huart6.Instance)
+    {
+			ifRecv = 1;
+        nrf_decode();
+    }
+}
 /* USER CODE END 4 */
 
  /**

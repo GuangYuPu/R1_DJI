@@ -4,12 +4,8 @@
 
 nrfBag_t nrfDataBag;
 uint8_t nrfReceive[BAG_LENGTH*2];
-int16_t ch0 = 1024;
-int16_t ch1 = 1024;
-int16_t ch2 = 1024;
-int16_t ch3 = 1024; 
-int8_t left = 3;
-int8_t right = 3;
+int Leftx, Lefty, Rightx, Righty; 
+uint8_t button_A,button_B,button_C,button_D,button_E,button_F,button_G,button_H;
 
 //发送单片机初始化
 void nrf_Transmit_init()
@@ -21,16 +17,12 @@ void nrf_Transmit_init()
 //发送单片机发送函数，循环调用
 void send()
 {
-    HAL_UART_Transmit(&huart6,nrfDataBag.raw,BAG_LENGTH,50);
+    HAL_UART_Transmit(&huart1,nrfDataBag.raw,BAG_LENGTH,50);
 } 
 
 //接收单片机初始化
 void nrf_receive_init()
 {
-		for(int i=0;i<50;i++)
-	{
-		//Delay
-	}
     HAL_UART_Receive_DMA(&huart6,nrfReceive,BAG_LENGTH*2);
 }
 
@@ -44,12 +36,18 @@ void nrf_decode()
               tempBag.header[0] == HEADER_HIGH    &&
               tempBag.header[1] == HEADER_LOW  
           ){
-              ch0 = tempBag.ch0;
-              ch1 = tempBag.ch1;
-              ch2 = tempBag.ch2;
-						  ch3 = tempBag.ch3;
-						left = tempBag.left;
-						right = tempBag.right;
+              Leftx = tempBag.Leftx;
+              Lefty = tempBag.Lefty;
+              Rightx = tempBag.Rightx;
+						  Righty = tempBag.Righty;
+						button_A = tempBag.button_A;
+						button_B = tempBag.button_B;
+						button_C = tempBag.button_C;
+						button_D = tempBag.button_D;
+						button_E = tempBag.button_E;
+						button_F = tempBag.button_F;
+						button_G = tempBag.button_G;
+						button_H = tempBag.button_H;
               break;          
           }
       }
@@ -57,7 +55,7 @@ void nrf_decode()
 
 //void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 //{
-//    if(huart->Instance == huart4.Instance)
+//    if(huart->Instance == huart6.Instance)
 //    {
 //        nrf_decode();
 //    }

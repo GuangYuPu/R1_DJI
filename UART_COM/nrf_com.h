@@ -7,7 +7,7 @@
 #define HEADER_LOW 0X99
 
 #define HEADER_LENGTH 2
-#define PAY_LOAD_LENGTH 10
+#define PAY_LOAD_LENGTH 24
 #define BAG_LENGTH (HEADER_LENGTH + PAY_LOAD_LENGTH)
 
 typedef union{
@@ -20,12 +20,18 @@ typedef union{
             uint8_t pay_load[PAY_LOAD_LENGTH];
             struct 
             {
-              int16_t ch0;
-							int16_t ch1;
-							int16_t ch2;
-							int16_t ch3;
-							int8_t left;
-							int8_t right;
+                int Leftx;
+                int Lefty;
+                int Rightx;
+                int Righty;
+							  uint8_t button_A;
+							  uint8_t button_B;
+							  uint8_t button_C;
+							  uint8_t button_D;
+							  uint8_t button_E;
+							  uint8_t button_F;
+							  uint8_t button_G;
+							  uint8_t button_H;
             }__attribute__((packed));
         };
     }__attribute__((packed));
@@ -33,8 +39,8 @@ typedef union{
 
 extern nrfBag_t nrfDataBag;
 extern uint8_t nrfReceive[BAG_LENGTH*2];
-extern int16_t ch0, ch1, ch2, ch3; 
-extern int8_t left,right;
+extern int Leftx, Lefty, Rightx, Righty; 
+extern uint8_t button_A,button_B,button_C,button_D,button_E,button_F,button_G,button_H;
 
 void nrf_Transmit_init();
 void send();
