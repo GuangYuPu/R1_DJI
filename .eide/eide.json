@@ -19,10 +19,7 @@
             "./Drivers/CMSIS/Include",
             "./UC",
             "./UART_COM",
-            "./.cmsis/dsp_lib",
-            "./.cmsis/include",
-            "./MDK-ARM/RTE/_R1_DJI_FREERTOS",
-            "./.eide/deps"
+            "./MDK-ARM/RTE/_R1_DJI_FREERTOS"
           ],
           "defineList": [
             "USE_HAL_DRIVER",
@@ -473,8 +470,6 @@
           "Drivers/CMSIS/Include",
           "UC",
           "UART_COM",
-          ".cmsis/dsp_lib",
-          ".cmsis/include",
           "MDK-ARM/RTE/_R1_DJI_FREERTOS"
         ],
         "defineList": [

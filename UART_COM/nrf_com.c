@@ -36,18 +36,18 @@ void nrf_decode()
               tempBag.header[0] == HEADER_HIGH    &&
               tempBag.header[1] == HEADER_LOW  
           ){
-              Leftx = tempBag.Leftx;
-              Lefty = tempBag.Lefty;
-              Rightx = tempBag.Rightx;
-						  Righty = tempBag.Righty;
-						button_A = tempBag.button_A;
-						button_B = tempBag.button_B;
-						button_C = tempBag.button_C;
-						button_D = tempBag.button_D;
-						button_E = tempBag.button_E;
-						button_F = tempBag.button_F;
-						button_G = tempBag.button_G;
-						button_H = tempBag.button_H;
+            Leftx = tempBag.Leftx;
+            Lefty = tempBag.Lefty;
+            Rightx = tempBag.Rightx;
+		    Righty = tempBag.Righty;
+			button_A = tempBag.button_A;
+			button_B = tempBag.button_B;
+			button_C = tempBag.button_C;
+			button_D = tempBag.button_D;
+			button_E = tempBag.button_E;
+			button_F = tempBag.button_F;
+			button_G = tempBag.button_G;
+			button_H = tempBag.button_H;
               break;          
           }
       }

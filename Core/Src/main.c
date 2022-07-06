@@ -51,6 +51,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+int ifRecv_dji = 0;
+int ifRecv = 0;
+
 float speed = 0;
 float pitch = 0;
 float yaw = 0;
@@ -67,12 +70,12 @@ uint32_t waiting_time = 2000;
 float close_speed = -100;
 float open_speed = 180;
 
-char flag = 0;//标志是否进入状�??  
-/*状�?�机状�?�变�?
-state = 0 状�??0 遥控器控制中间状�? 初始态及其他任何状�?�之间的连接�?
-state = 1 状�??1 全自动取�?
-state = 2 状�??2 全自动射�?
-state = 3 状�??3 准备取球*/
+char flag = 0;//标志是否进入状态 
+/*状态机变换表
+state = 0 状态0 遥控器控制中间状态 初始态及其他任何状态之间的连接态
+state = 1 状态1 全自动取球
+state = 2 状态2 全自动射球
+state = 3 状态3 准备取球*/
 uint32_t state = 0;
 uint32_t last_state = 3;
 /* USER CODE END PV */
@@ -135,14 +138,13 @@ int main(void)
 	hDJI[7].motorType = M3508;
 	
 	DJI_Init();
-	ifRecv = 0;
-	//HAL_UART_Receive_DMA(&huart1,JoyStickReceiveData,18);
+	
+  HAL_UART_Receive_DMA(&huart1,JoyStickReceiveData,18);
 	
 	nrf_receive_init();
 	
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
-  //while (!ifRecv);
   
   /* USER CODE END 2 */
 
@@ -152,6 +154,9 @@ int main(void)
   {
 		if(state == 0)
 		{
+      while(ifRecv_dji==0)
+      {
+      }
 			
 			if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
 			if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
@@ -300,15 +305,15 @@ void SystemClock_Config(void)
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
     
 
-//    if(huart->Instance == huart1.Instance){
-//        UART1Decode();
-//        ;
-//    }
+   if(huart->Instance == huart1.Instance){
+       ifRecv_dji = 1;
+       UART1Decode();
+   }
 		
 		if(huart->Instance == huart6.Instance)
     {
-			ifRecv = 1;
-        nrf_decode();
+      ifRecv = 1;
+      nrf_decode();
     }
 }
 /* USER CODE END 4 */
@@ -329,36 +334,40 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		time++;
 	}
-  /*有限机线程?*/
+  /*有限机线程*/
 	if (htim == (&htim3))
 	{	
     
-    //由初始状态?
+    //由初始状态
     if(state == 0 && last_state == 0 || flag == 1)
 		{
-			if(0)//由初始切换到状态1（全自动取球）的触发条件
+			if(0 && state == 0)//由初始切换到状态1（全自动取球）的触发条件
       {
 				state = 1;
+        flag = 0;
 			}
-      if(0)//由出初始态切换到状状态2（全自动射球）的触发条件
+      if(0 && state == 0)//由出初始态切换到状状态2（全自动射球）的触发条件
       {
 				state = 2;
+        flag = 0;
 			}
-      if(0)//由初始切换到状态3（准备取球）的触发条件?
+      if(0 && state == 0)//由初始切换到状态3（准备取球）的触发条件?
       {
 				state = 3;
+        flag = 0;
 			}
 		}
-    //由状1（全自动取球�?
+
+    //由状态1（全自动取球）
 		if(state == 0 && last_state == 1 || flag == 1)
 		{
-      if(Raw_Data.left == 1 && state == 0)//由状�?1（全自动取球）切换到状�??2（全自动射球）的触发条件
+      if(Raw_Data.left == 1 && state == 0)//由状态1（全自动取球）切换到状态2（全自动射球）的触发条件
       {
         enter_time = time;
         flag = 1;
 				state = 2;
 			}
-        //状�??2执行全自动射�?
+        //状态2执行全自动射球
         if(state == 2)
 					{
           if((time - enter_time)<(zz_time))//open mocalun and open the zhuazi
@@ -391,25 +400,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           }
 			}
 			
-      if(0)//由状�?1（全自动取球）切换到状�??3（准备取球）的触发条�?
+      if(0 && state == 0)//由状态1（全自动取球）切换到状态3（准备取球）的触发条件
       {
 				state = 3;
+        flag = 0;
 			}
 		}
-    //由状�?2（全自动射球�?
+
+    //由状态2（全自动射球）
 		if(state == 0 && last_state == 2 || flag == 1)
 		{
-      if(0)//由状�?2（全自动射球）切换到状�??1（全自动取球）的触发条件
+      if(0 && state == 0)//由状态2（全自动射球）切换到状态1（全自动取球）的触发条件
       {
 				state = 1;
+        flag = 0;
 			}
-      if(Raw_Data.right == 2 && state == 0)//由状�?2（全自动射球）切换到状�??3（准备取球）的触发条�?
+      if(Raw_Data.right == 2 && state == 0)//由状态2（全自动射球）切换到状态3（准备取球）的触发条件?
       {
         enter_time = time;
         flag = 1;
 				state = 3;
 			}
-      //状�??2执行全自动准备取�?
+      //状态3执行全自动准备取球
       if(state == 3)
 					{
           if((time - enter_time)<(480))//open zhuazi && down shenjiang
@@ -437,16 +449,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           }
 			}
 		}
-    //由状�?3（准备取球）
+    
+    //由状态3（准备取球）
 		if((state == 0 && last_state == 3) || flag == 1)
 		{
-      if(Raw_Data.left == 2 && state == 0)//由状�?3（准备取球）切换到状�?1（全自动取球）的触发条件
+      if(Raw_Data.left == 2 && state == 0)//由状态3（准备取球）切换到状态1（全自动取球）的触发条件
       {
         enter_time = time;
 				state = 1;
         flag = 1;
 			}
-        //状�??1执行全自动取�?
+        //状态1执行全自动取球
         if(state == 1)
 					{
           if((time - enter_time)<(1000))//open zhuazi --> close zhuazi
@@ -474,9 +487,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           }
 		
 			}
-      if(0)//由状�?3（准备取球）切换到状�?2（全自动射球）的触发条件
+      if(0 && state == 0)//由状态3（准备取球）切换到状态2（全自动射球）的触发条件
       {
 				state = 2;
+        flag = 0;
 			}
 		}
 		
