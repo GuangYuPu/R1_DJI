@@ -19,6 +19,7 @@
             "./Drivers/CMSIS/Include",
             "./UC",
             "./UART_COM",
+            "./RS485",
             "./MDK-ARM/RTE/_R1_DJI_FREERTOS"
           ],
           "defineList": [
@@ -205,6 +206,33 @@
         ]
       },
       {
+        "name": "UC",
+        "files": [
+          {
+            "path": "UC/Caculate.c"
+          },
+          {
+            "path": "UC/DJI.c"
+          },
+          {
+            "path": "UC/wtr_can.c"
+          },
+          {
+            "path": "UC/wtr_uart.c"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "as69",
+        "files": [
+          {
+            "path": "UART_COM/nrf_com.c"
+          }
+        ],
+        "folders": []
+      },
+      {
         "name": "Drivers",
         "files": [],
         "folders": [
@@ -277,28 +305,10 @@
         ]
       },
       {
-        "name": "UC",
+        "name": "RS485",
         "files": [
           {
-            "path": "UC/Caculate.c"
-          },
-          {
-            "path": "UC/DJI.c"
-          },
-          {
-            "path": "UC/wtr_can.c"
-          },
-          {
-            "path": "UC/wtr_uart.c"
-          }
-        ],
-        "folders": []
-      },
-      {
-        "name": "as69",
-        "files": [
-          {
-            "path": "UART_COM/nrf_com.c"
+            "path": "RS485/RS485.c"
           }
         ],
         "folders": []
@@ -470,6 +480,7 @@
           "Drivers/CMSIS/Include",
           "UC",
           "UART_COM",
+          "RS485",
           "MDK-ARM/RTE/_R1_DJI_FREERTOS"
         ],
         "defineList": [

@@ -38,4 +38,4 @@ r1_dji_freertos\wtr_uart.o: ../Core/Inc/can.h
 r1_dji_freertos\wtr_uart.o: D:\MDK\ARM\ARMCC\Bin\..\include\string.h
 r1_dji_freertos\wtr_uart.o: D:\MDK\ARM\ARMCC\Bin\..\include\math.h
 r1_dji_freertos\wtr_uart.o: ../Core/Inc/usart.h
-r1_dji_freertos\wtr_uart.o: ..\UART_COM\nrf_com.h
+r1_dji_freertos\wtr_uart.o: ../UART_COM/nrf_com.h

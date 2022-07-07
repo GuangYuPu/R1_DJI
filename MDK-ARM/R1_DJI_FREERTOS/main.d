@@ -37,8 +37,8 @@ r1_dji_freertos\main.o: ../Core/Inc/dma.h
 r1_dji_freertos\main.o: ../Core/Inc/tim.h
 r1_dji_freertos\main.o: ../Core/Inc/usart.h
 r1_dji_freertos\main.o: ../Core/Inc/gpio.h
-r1_dji_freertos\main.o: ..\UC\Caculate.h
-r1_dji_freertos\main.o: ..\UC\DJI.h
-r1_dji_freertos\main.o: ..\UC\wtr_can.h
-r1_dji_freertos\main.o: ..\UC\wtr_uart.h
-r1_dji_freertos\main.o: ..\UART_COM\nrf_com.h
+r1_dji_freertos\main.o: ../UC/Caculate.h
+r1_dji_freertos\main.o: ../UC/DJI.h
+r1_dji_freertos\main.o: ../UC/wtr_can.h
+r1_dji_freertos\main.o: ../UC/wtr_uart.h
+r1_dji_freertos\main.o: ../UART_COM/nrf_com.h
