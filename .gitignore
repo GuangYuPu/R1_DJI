@@ -9,7 +9,7 @@ build
 *.ept
 *.eide-template
 
-MDK-ARM/*
-!MDK-ARM/*.uvoptx
-!MDK-ARM/*.uvprojx
-!MDK-ARM/*.s
+# MDK-ARM/*
+# MDK-ARM/*.uvoptx
+# MDK-ARM/*.uvprojx
+# MDK-ARM/*.*s

@@ -73,10 +73,10 @@ float close_speed = -100;
 float open_speed = 180;
 
 char flag = 0;//标志是否进入状�?? 
-/*状�?�机变换�??
-state = 0 状�??0 遥控器控制中间状�?? 初始态及其他任何状�?�之间的连接�??
-state = 1 状�??1 全自动取�??
-state = 2 状�??2 全自动射�??
+/*状�?�机变换�???
+state = 0 状�??0 遥控器控制中间状�??? 初始态及其他任何状�?�之间的连接�???
+state = 1 状�??1 全自动取�???
+state = 2 状�??2 全自动射�???
 state = 3 状�??3 准备取球*/
 uint32_t state = 0;
 uint32_t last_state = 3;
@@ -128,6 +128,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_USART3_UART_Init();
+  MX_UART8_Init();
   /* USER CODE BEGIN 2 */
  CANFilterInit(&hcan1);
 	
@@ -268,6 +269,7 @@ void SystemClock_Config(void)
   */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
@@ -283,12 +285,14 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Activate the Over-Drive mode
   */
   if (HAL_PWREx_EnableOverDrive() != HAL_OK)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -319,15 +323,15 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
       nrf_decode();
     }
 
-    if(huart->Instance == huart3.Instance)
+    if(huart->Instance == huart8.Instance)
     {
       ifRecv_RS485 = 1;
-      nrf_decode();
+      RS485_decode();
     }
 }
 /* USER CODE END 4 */
 
- /**
+/**
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM4 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
@@ -343,11 +347,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		time++;
 	}
-  /*有限机线�??*/
+  /*有限机线�???*/
 	if (htim == (&htim3))
 	{	
     
-    //由初始状�??
+    //由初始状�???
     if(state == 0 && last_state == 0 || flag == 1)
 		{
 			if(0 && state == 0)//由初始切换到状�??1（全自动取球）的触发条件
@@ -355,28 +359,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 				state = 1;
         flag = 0;
 			}
-      if(0 && state == 0)//由出初始态切换到状状�??2（全自动射球）的触发条件
+      if(0 && state == 0)//由出初始态切换到状状�???2（全自动射球）的触发条件
       {
 				state = 2;
         flag = 0;
 			}
-      if(0 && state == 0)//由初始切换到状�??3（准备取球）的触发条�???
+      if(0 && state == 0)//由初始切换到状�??3（准备取球）的触发条�????
       {
 				state = 3;
         flag = 0;
 			}
 		}
 
-    //由状�??1（全自动取球�??
+    //由状�???1（全自动取球�???
 		if(state == 0 && last_state == 1 || flag == 1)
 		{
-      if(Raw_Data.left == 1 && state == 0)//由状�??1（全自动取球）切换到状�??2（全自动射球）的触发条件
+      if(Raw_Data.left == 1 && state == 0)//由状�???1（全自动取球）切换到状�??2（全自动射球）的触发条件
       {
         enter_time = time;
         flag = 1;
 				state = 2;
 			}
-        //状�??2执行全自动射�??
+        //状�??2执行全自动射�???
         if(state == 2)
 					{
           if((time - enter_time)<(zz_time))//open mocalun and open the zhuazi
@@ -409,28 +413,28 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           }
 			}
 			
-      if(0 && state == 0)//由状�??1（全自动取球）切换到状�??3（准备取球）的触发条�??
+      if(0 && state == 0)//由状�???1（全自动取球）切换到状�??3（准备取球）的触发条�???
       {
 				state = 3;
         flag = 0;
 			}
 		}
 
-    //由状�??2（全自动射球�??
+    //由状�???2（全自动射球�???
 		if(state == 0 && last_state == 2 || flag == 1)
 		{
-      if(0 && state == 0)//由状�??2（全自动射球）切换到状�??1（全自动取球）的触发条件
+      if(0 && state == 0)//由状�???2（全自动射球）切换到状�??1（全自动取球）的触发条件
       {
 				state = 1;
         flag = 0;
 			}
-      if(Raw_Data.right == 2 && state == 0)//由状�??2（全自动射球）切换到状�??3（准备取球）的触发条�???
+      if(Raw_Data.right == 2 && state == 0)//由状�???2（全自动射球）切换到状�??3（准备取球）的触发条�????
       {
         enter_time = time;
         flag = 1;
 				state = 3;
 			}
-      //状�??3执行全自动准备取�??
+      //状�??3执行全自动准备取�???
       if(state == 3)
 					{
           if((time - enter_time)<(480))//open zhuazi && down shenjiang
@@ -459,16 +463,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			}
 		}
     
-    //由状�??3（准备取球）
+    //由状�???3（准备取球）
 		if((state == 0 && last_state == 3) || flag == 1)
 		{
-      if(Raw_Data.left == 2 && state == 0)//由状�??3（准备取球）切换到状�??1（全自动取球）的触发条件
+      if(Raw_Data.left == 2 && state == 0)//由状�???3（准备取球）切换到状�???1（全自动取球）的触发条件
       {
         enter_time = time;
 				state = 1;
         flag = 1;
 			}
-        //状�??1执行全自动取�??
+        //状�??1执行全自动取�???
         if(state == 1)
 					{
           if((time - enter_time)<(1000))//open zhuazi --> close zhuazi
@@ -496,7 +500,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           }
 		
 			}
-      if(0 && state == 0)//由状�??3（准备取球）切换到状�??2（全自动射球）的触发条件
+      if(0 && state == 0)//由状�???3（准备取球）切换到状�???2（全自动射球）的触发条件
       {
 				state = 2;
         flag = 0;
@@ -547,5 +551,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
