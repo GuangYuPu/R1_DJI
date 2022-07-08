@@ -8,3 +8,8 @@ build
 # eide template
 *.ept
 *.eide-template
+
+MDK-ARM/*
+!MDK-ARM/*.uvoptx
+!MDK-ARM/*.uvprojx
+!MDK-ARM/*.s
