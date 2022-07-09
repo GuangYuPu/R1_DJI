@@ -19,8 +19,8 @@
             "./Drivers/CMSIS/Include",
             "./UC",
             "./UART_COM",
-            "./MDK-ARM/RTE/_R1_DJI_FREERTOS",
-            "./RS485"
+            "./RS485",
+            "./MDK-ARM/RTE/_R1_DJI_FREERTOS"
           ],
           "defineList": [
             "USE_HAL_DRIVER",
@@ -38,11 +38,51 @@
     "storageLayout": {
       "RAM": [
         {
+          "tag": "RAM",
+          "id": 1,
+          "mem": {
+            "startAddr": "0x0",
+            "size": "0x0"
+          },
+          "isChecked": false,
+          "noInit": false
+        },
+        {
+          "tag": "RAM",
+          "id": 2,
+          "mem": {
+            "startAddr": "0x0",
+            "size": "0x0"
+          },
+          "isChecked": false,
+          "noInit": false
+        },
+        {
+          "tag": "RAM",
+          "id": 3,
+          "mem": {
+            "startAddr": "0x0",
+            "size": "0x0"
+          },
+          "isChecked": false,
+          "noInit": false
+        },
+        {
           "tag": "IRAM",
           "id": 1,
           "mem": {
             "startAddr": "0x20000000",
-            "size": "0x5000"
+            "size": "0x30000"
+          },
+          "isChecked": true,
+          "noInit": false
+        },
+        {
+          "tag": "IRAM",
+          "id": 2,
+          "mem": {
+            "startAddr": "0x10000000",
+            "size": "0x10000"
           },
           "isChecked": true,
           "noInit": false
@@ -50,14 +90,54 @@
       ],
       "ROM": [
         {
+          "tag": "ROM",
+          "id": 1,
+          "mem": {
+            "startAddr": "0x0",
+            "size": "0x0"
+          },
+          "isChecked": false,
+          "isStartup": false
+        },
+        {
+          "tag": "ROM",
+          "id": 2,
+          "mem": {
+            "startAddr": "0x0",
+            "size": "0x0"
+          },
+          "isChecked": false,
+          "isStartup": false
+        },
+        {
+          "tag": "ROM",
+          "id": 3,
+          "mem": {
+            "startAddr": "0x0",
+            "size": "0x0"
+          },
+          "isChecked": false,
+          "isStartup": false
+        },
+        {
           "tag": "IROM",
           "id": 1,
           "mem": {
-            "startAddr": "0x08000000",
-            "size": "0x10000"
+            "startAddr": "0x8000000",
+            "size": "0x200000"
           },
           "isChecked": true,
           "isStartup": true
+        },
+        {
+          "tag": "IROM",
+          "id": 2,
+          "mem": {
+            "startAddr": "0x0",
+            "size": "0x0"
+          },
+          "isChecked": false,
+          "isStartup": false
         }
       ]
     },
@@ -71,11 +151,6 @@
     "name": "<virtual_root>",
     "files": [],
     "folders": [
-      {
-        "name": "::CMSIS",
-        "files": [],
-        "folders": []
-      },
       {
         "name": "Application",
         "files": [],
@@ -129,6 +204,24 @@
             ]
           }
         ]
+      },
+      {
+        "name": "UC",
+        "files": [
+          {
+            "path": "UC/Caculate.c"
+          },
+          {
+            "path": "UC/DJI.c"
+          },
+          {
+            "path": "UC/wtr_can.c"
+          },
+          {
+            "path": "UC/wtr_uart.c"
+          }
+        ],
+        "folders": []
       },
       {
         "name": "as69",
@@ -221,21 +314,8 @@
         "folders": []
       },
       {
-        "name": "UC",
-        "files": [
-          {
-            "path": "UC/Caculate.c"
-          },
-          {
-            "path": "UC/DJI.c"
-          },
-          {
-            "path": "UC/wtr_can.c"
-          },
-          {
-            "path": "UC/wtr_uart.c"
-          }
-        ],
+        "name": "::CMSIS",
+        "files": [],
         "folders": []
       }
     ]
@@ -402,7 +482,7 @@
       "uploadConfig": {
         "bin": "",
         "target": "stm32f4x_stlink",
-        "interface": "stlink",
+        "interface": "cmsis-dap",
         "baseAddr": "0x08000000"
       },
       "uploadConfigMap": {

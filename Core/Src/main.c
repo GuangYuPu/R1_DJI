@@ -66,18 +66,24 @@ float mocalun_state = 0;
 uint32_t time = 0;
 uint32_t enter_time = 0;
 
-uint32_t sj_time = 160;
-uint32_t zz_time = 2000;
-uint32_t waiting_time = 2000;
+uint32_t sj_time = 200;
+uint32_t zz_time = 1000;
+uint32_t waiting_time = 1000;
 float close_speed = -100;
 float open_speed = 180;
 
+uint32_t sj_time_1 = 1000;
+uint32_t zz_time_1 = 500;
+uint32_t waiting_time_1 = 1000;
+float close_speed_1 = -100;
+float open_speed_1 = 180;
+
 char flag = 0;//标志是否进入状�?? 
-/*状�?�机变换�???
-state = 0 状�??0 遥控器控制中间状�??? 初始态及其他任何状�?�之间的连接�???
-state = 1 状�??1 全自动取�???
-state = 2 状�??2 全自动射�???
-state = 3 状�??3 准备取球*/
+/*状�?�机变换�???
+state = 0 状�??0 遥控器控制中间状�??? 初始态及其他任何状�?�之间的连接�???
+state = 1 状�??1 全自动取�???
+state = 2 状�??2 全自动射�??? 并准备取球
+*/
 uint32_t state = 0;
 uint32_t last_state = 3;
 /* USER CODE END PV */
@@ -201,17 +207,6 @@ int main(void)
 			// speedServo(500,&hDJI[7]);/*==================================================================*/
 			
 		}
-    //执行准备取球
-		else if(state == 3){
-			speedServo(0,&hDJI[0]);
-			speedServo(0,&hDJI[1]);
-			speedServo(0,&hDJI[2]);
-			speedServo(0,&hDJI[3]);
-			speedServo(fetch_state,&hDJI[4]);
-			speedServo(0,&hDJI[5]);
-			speedServo(0,&hDJI[6]);
-			speedServo(0,&hDJI[7]);
-		}
     //执行射球
     else if(state == 2){
 			speedServo(mocalun_state,&hDJI[0]);
@@ -219,8 +214,8 @@ int main(void)
 			speedServo(-mocalun_state,&hDJI[2]);
 			speedServo(-mocalun_state,&hDJI[3]);
 			speedServo(fetch_state,&hDJI[4]);
-			speedServo(0,&hDJI[5]);
-			speedServo(0,&hDJI[6]);
+			positionServo(0,&hDJI[5]);
+			positionServo(0,&hDJI[6]);
 			speedServo(0,&hDJI[7]);
 		}
 		//执行取球操作
@@ -230,9 +225,9 @@ int main(void)
 			speedServo(0,&hDJI[2]);
 			speedServo(0,&hDJI[3]);
 			speedServo(fetch_state,&hDJI[4]);
-			speedServo(0,&hDJI[5]);
-			speedServo(0,&hDJI[6]);
-			speedServo(0,&hDJI[7]);
+			positionServo(0,&hDJI[5]);
+			positionServo(0,&hDJI[6]);
+			positionServo(0,&hDJI[7]);
 		}
 		
 		CanTransmit_DJI_1234(&hcan1,
@@ -347,167 +342,144 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		time++;
 	}
-  /*有限机线�???*/
+  /*有限机*/
 	if (htim == (&htim3))
 	{	
-    
-    //由初始状�???
-    if(state == 0 && last_state == 0 || flag == 1)
+    if(state == 0 && last_state == 0)
 		{
-			if(0 && state == 0)//由初始切换到状�??1（全自动取球）的触发条件
+			if(Raw_Data.right == 2 && state == 0)
       {
+        enter_time = time;
 				state = 1;
-        flag = 0;
 			}
-      if(0 && state == 0)//由出初始态切换到状状�???2（全自动射球）的触发条件
+      if(Raw_Data.left == 1 && state == 0)
       {
+        enter_time = time;
 				state = 2;
-        flag = 0;
-			}
-      if(0 && state == 0)//由初始切换到状�??3（准备取球）的触发条�????
-      {
-				state = 3;
-        flag = 0;
 			}
 		}
 
-    //由状�???1（全自动取球�???
-		if(state == 0 && last_state == 1 || flag == 1)
+    
+		if(state == 0 && last_state == 1)
 		{
-      if(Raw_Data.left == 1 && state == 0)//由状�???1（全自动取球）切换到状�??2（全自动射球）的触发条件
+      if(Raw_Data.right == 1 && state == 0)
       {
         enter_time = time;
-        flag = 1;
 				state = 2;
 			}
-        //状�??2执行全自动射�???
+		}
+
+    
+		if(state == 0 && last_state == 2)
+		{
+      if(Raw_Data.right == 2 && state == 0)
+      {
+        enter_time = time;
+				state = 1;
+			}
+      
+		}
+    
         if(state == 2)
 					{
           if((time - enter_time)<(zz_time))//open mocalun and open the zhuazi
           {
-            mocalun_state = 5000;
-            fetch_state = 20;
+            mocalun_state = 500;
+            fetch_state = 0;
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
           }
           else if((time - enter_time)<(zz_time+sj_time))//up shenjiang
           {
-            mocalun_state = 5000;
+            mocalun_state = 500;
             fetch_state = 0;
+            //when rsdecode_exp = 125
+            if(rs_decode < 100)
+            {
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
+            }
+            else if(rs_decode > 150)
+            {
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+            }
+            else
+            {
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+            }
           }
           else if((time - enter_time)<(zz_time+sj_time+waiting_time))//wait for shooting
           {
-            mocalun_state = 5000;
+            mocalun_state = 500;
             fetch_state = 0;
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+          }
+          else if((time - enter_time)<(zz_time+sj_time+waiting_time+sj_time_1))//down shenjiang and open the zhuazi
+          {
+            mocalun_state = 0;
+            fetch_state = open_speed;
+            //when rsdecode_exp = 125
+            if(rs_decode < 100)
+            {
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
+            }
+            else if(rs_decode > 150)
+            {
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+            }
+            else
+            {
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+            }
           }
           else{
 						fetch_state = 0;
-            fetch_state = 0;
             last_state = state;
             state = 0;
-            flag = 0;
           }
-			}
-			
-      if(0 && state == 0)//由状�???1（全自动取球）切换到状�??3（准备取球）的触发条�???
-      {
-				state = 3;
-        flag = 0;
-			}
-		}
-
-    //由状�???2（全自动射球�???
-		if(state == 0 && last_state == 2 || flag == 1)
-		{
-      if(0 && state == 0)//由状�???2（全自动射球）切换到状�??1（全自动取球）的触发条件
-      {
-				state = 1;
-        flag = 0;
-			}
-      if(Raw_Data.right == 2 && state == 0)//由状�???2（全自动射球）切换到状�??3（准备取球）的触发条�????
-      {
-        enter_time = time;
-        flag = 1;
-				state = 3;
-			}
-      //状�??3执行全自动准备取�???
-      if(state == 3)
+			    }
+		
+    else if(state == 1)
 					{
-          if((time - enter_time)<(480))//open zhuazi && down shenjiang
+          if((time - enter_time)<(zz_time_1))//close zhuazi
           {
-            fetch_state = 180;
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-          }
-          // else if((time - enter_time)<(1000+750))//up shenjiang --> up shengjiang and open zhuazi a little
-          // {
-          //   fetch_state = 50;
-          //   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-          //   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
-          // }
-          // else if((time - enter_time)<(1000*2+750))//close zhuazi
-          // {
-          //   fetch_state = -100;
-          //   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-          //   HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-          // }
-          else{
-            last_state = state;
-            state = 0;
-            flag = 0;
-          }
-			}
-		}
-    
-    //由状�???3（准备取球）
-		if((state == 0 && last_state == 3) || flag == 1)
-		{
-      if(Raw_Data.left == 2 && state == 0)//由状�???3（准备取球）切换到状�???1（全自动取球）的触发条件
-      {
-        enter_time = time;
-				state = 1;
-        flag = 1;
-			}
-        //状�??1执行全自动取�???
-        if(state == 1)
-					{
-          if((time - enter_time)<(1000))//open zhuazi --> close zhuazi
-          {
-            fetch_state = -100;
+            fetch_state = close_speed_1;
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
           }
-          else if((time - enter_time)<(1000+750))//up shenjiang --> up shengjiang and open zhuazi a little
+          else if((time - enter_time)<(zz_time_1+sj_time_1))//up shenjiang
           {
-            fetch_state = 50;
+            fetch_state = 0;
+            //when rsdecode_exp = 125
+            if(rs_decode < 100)
+            {
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
-          }
-          else if((time - enter_time)<(1000*2+750))//close zhuazi
-          {
-            fetch_state = -100;
+            }
+            else if(rs_decode > 150)
+            {
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+            }
+            else
+            {
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+            }
           }
           else{
+						fetch_state = 0;
             last_state = state;
             state = 0;
             flag = 0;
           }
-		
-			}
-      if(0 && state == 0)//由状�???3（准备取球）切换到状�???2（全自动射球）的触发条件
-      {
-				state = 2;
-        flag = 0;
-			}
-		}
-		
-    
+			    }
 
 
 	}

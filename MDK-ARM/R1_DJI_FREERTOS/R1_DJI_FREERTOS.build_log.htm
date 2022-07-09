@@ -17,7 +17,7 @@ Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
 CPU DLL:         SARMCM3.DLL V5.34.0.0
 Dialog DLL:      DCM.DLL V1.17.3.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.8.0
+Target DLL:      CMSIS_AGDI.dll V1.32.13.0
 Dialog DLL:      TCM.DLL V1.48.0.0
  
 <h2>Project:</h2>
@@ -30,20 +30,44 @@ Warning: *** SUPPORT EXPIRED, NEW PRODUCT SERIAL NUMBER REQUIRED ***
          *** Running with Code Size Limit: 32K                   ***
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\MDK\ARM\ARMCC\Bin'
 Build target 'R1_DJI_FREERTOS'
-compiling RS485.c...
-..\RS485\RS485.h(6): warning:  #1295-D: Deprecated declaration RS485_init - give arg types
-  void RS485_init();
-..\RS485\RS485.h(7): warning:  #1295-D: Deprecated declaration RS485_decode - give arg types
-  void RS485_decode();
-..\RS485\RS485.h(13): warning:  #1-D: last line of file ends without a newline
+compiling main.c...
+../UC/DJI.h(64): warning:  #1295-D: Deprecated declaration DJI_Init - give arg types
+  void DJI_Init();
+../UC/DJI.h(68): warning:  #1-D: last line of file ends without a newline
   #endif
-..\RS485\RS485.c(31): warning:  #1-D: last line of file ends without a newline
-  }
-..\RS485\RS485.c: 4 warnings, 0 errors
+../UC/Caculate.h(10): warning:  #1-D: last line of file ends without a newline
+  #endif
+../UC/wtr_uart.h(28): warning:  #1295-D: Deprecated declaration UART1Decode - give arg types
+  void UART1Decode();
+../UART_COM/nrf_com.h(45): warning:  #1295-D: Deprecated declaration nrf_Transmit_init - give arg types
+  void nrf_Transmit_init();
+../UART_COM/nrf_com.h(46): warning:  #1295-D: Deprecated declaration send - give arg types
+  void send();
+../UART_COM/nrf_com.h(47): warning:  #1295-D: Deprecated declaration nrf_receive_init - give arg types
+  void nrf_receive_init();
+../UART_COM/nrf_com.h(48): warning:  #1295-D: Deprecated declaration nrf_decode - give arg types
+  void nrf_decode();
+../UART_COM/nrf_com.h(50): warning:  #1-D: last line of file ends without a newline
+  #endif
+../RS485/RS485.h(6): warning:  #1295-D: Deprecated declaration RS485_init - give arg types
+  void RS485_init();
+../RS485/RS485.h(7): warning:  #1295-D: Deprecated declaration RS485_decode - give arg types
+  void RS485_decode();
+../RS485/RS485.h(13): warning:  #1-D: last line of file ends without a newline
+  #endif
+../Core/Src/main.c(171): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+       	if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
+../Core/Src/main.c(172): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
+../Core/Src/main.c(173): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
+../Core/Src/main.c(174): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
+../Core/Src/main.c: 16 warnings, 0 errors
 linking...
-Program Size: Code=18016 RO-data=492 RW-data=160 ZI-data=3216  
+Program Size: Code=18012 RO-data=492 RW-data=184 ZI-data=3216  
 FromELF: creating hex file...
-"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 5 Warning(s).
+"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 17 Warning(s).
 
 <h2>Software Packages used:</h2>
 
