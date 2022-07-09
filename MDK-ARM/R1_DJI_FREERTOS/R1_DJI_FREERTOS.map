@@ -691,7 +691,7 @@ Removing Unused input sections from the image.
     Removing nrf_com.o(.rev16_text), (4 bytes).
     Removing nrf_com.o(.revsh_text), (4 bytes).
     Removing nrf_com.o(.rrx_text), (6 bytes).
-    Removing nrf_com.o(i.nrf_Transmit_init), (16 bytes).
+    Removing nrf_com.o(i.nrf_Transmit_init), (24 bytes).
     Removing nrf_com.o(i.send), (24 bytes).
     Removing stm32f4xx_hal_can.o(.rev16_text), (4 bytes).
     Removing stm32f4xx_hal_can.o(.revsh_text), (4 bytes).
@@ -1112,7 +1112,7 @@ Removing Unused input sections from the image.
     Removing rs485.o(.revsh_text), (4 bytes).
     Removing rs485.o(.rrx_text), (6 bytes).
 
-469 unused section(s) (total 42844 bytes) removed from the image.
+469 unused section(s) (total 42852 bytes) removed from the image.
 
 ==============================================================================
 
@@ -1399,30 +1399,30 @@ Image Symbol Table
     i.get_dji_offset                         0x08004230   Section        0  dji.o(i.get_dji_offset)
     i.main                                   0x08004274   Section        0  main.o(i.main)
     i.nrf_decode                             0x080046d4   Section        0  nrf_com.o(i.nrf_decode)
-    i.nrf_receive_init                       0x0800479c   Section        0  nrf_com.o(i.nrf_receive_init)
-    i.positionServo                          0x080047b4   Section        0  caculate.o(i.positionServo)
-    i.speedServo                             0x080047ea   Section        0  caculate.o(i.speedServo)
-    .constdata                               0x08004808   Section        8  stm32f4xx_hal_dma.o(.constdata)
-    flagBitshiftOffset                       0x08004808   Data           8  stm32f4xx_hal_dma.o(.constdata)
-    .constdata                               0x08004810   Section       24  system_stm32f4xx.o(.constdata)
+    i.nrf_receive_init                       0x080047c8   Section        0  nrf_com.o(i.nrf_receive_init)
+    i.positionServo                          0x080047e0   Section        0  caculate.o(i.positionServo)
+    i.speedServo                             0x08004816   Section        0  caculate.o(i.speedServo)
+    .constdata                               0x08004834   Section        8  stm32f4xx_hal_dma.o(.constdata)
+    flagBitshiftOffset                       0x08004834   Data           8  stm32f4xx_hal_dma.o(.constdata)
+    .constdata                               0x0800483c   Section       24  system_stm32f4xx.o(.constdata)
     .data                                    0x20000000   Section       96  main.o(.data)
     .data                                    0x20000060   Section        4  dji.o(.data)
     TxMailbox                                0x20000060   Data           4  dji.o(.data)
     .data                                    0x20000064   Section        8  wtr_can.o(.data)
     .data                                    0x20000070   Section       16  wtr_uart.o(.data)
-    .data                                    0x20000080   Section       24  nrf_com.o(.data)
-    .data                                    0x20000098   Section        9  stm32f4xx_hal.o(.data)
-    .data                                    0x200000a4   Section        4  system_stm32f4xx.o(.data)
-    .data                                    0x200000a8   Section       14  rs485.o(.data)
-    .bss                                     0x200000b8   Section       40  can.o(.bss)
-    .bss                                     0x200000e0   Section      144  tim.o(.bss)
-    .bss                                     0x20000170   Section      656  usart.o(.bss)
-    .bss                                     0x20000400   Section       72  stm32f4xx_hal_timebase_tim.o(.bss)
-    .bss                                     0x20000448   Section     1152  dji.o(.bss)
-    .bss                                     0x200008c8   Section       30  wtr_uart.o(.bss)
-    .bss                                     0x200008e6   Section       78  nrf_com.o(.bss)
-    .bss                                     0x20000934   Section       20  rs485.o(.bss)
-    STACK                                    0x20000948   Section     1024  startup_stm32f427xx.o(STACK)
+    .data                                    0x20000080   Section       27  nrf_com.o(.data)
+    .data                                    0x2000009c   Section        9  stm32f4xx_hal.o(.data)
+    .data                                    0x200000a8   Section        4  system_stm32f4xx.o(.data)
+    .data                                    0x200000ac   Section       14  rs485.o(.data)
+    .bss                                     0x200000bc   Section       40  can.o(.bss)
+    .bss                                     0x200000e4   Section      144  tim.o(.bss)
+    .bss                                     0x20000174   Section      656  usart.o(.bss)
+    .bss                                     0x20000404   Section       72  stm32f4xx_hal_timebase_tim.o(.bss)
+    .bss                                     0x2000044c   Section     1152  dji.o(.bss)
+    .bss                                     0x200008cc   Section       30  wtr_uart.o(.bss)
+    .bss                                     0x200008ea   Section       93  nrf_com.o(.bss)
+    .bss                                     0x20000947   Section       20  rs485.o(.bss)
+    STACK                                    0x20000960   Section     1024  startup_stm32f427xx.o(STACK)
 
     Global Symbols
 
@@ -1677,14 +1677,14 @@ Image Symbol Table
     __scatterload_zeroinit                   0x08004221   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
     get_dji_offset                           0x08004231   Thumb Code    62  dji.o(i.get_dji_offset)
     main                                     0x08004275   Thumb Code  1010  main.o(i.main)
-    nrf_decode                               0x080046d5   Thumb Code   146  nrf_com.o(i.nrf_decode)
-    nrf_receive_init                         0x0800479d   Thumb Code    14  nrf_com.o(i.nrf_receive_init)
-    positionServo                            0x080047b5   Thumb Code    54  caculate.o(i.positionServo)
-    speedServo                               0x080047eb   Thumb Code    30  caculate.o(i.speedServo)
-    AHBPrescTable                            0x08004810   Data          16  system_stm32f4xx.o(.constdata)
-    APBPrescTable                            0x08004820   Data           8  system_stm32f4xx.o(.constdata)
-    Region$$Table$$Base                      0x08004828   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08004848   Number         0  anon$$obj.o(Region$$Table)
+    nrf_decode                               0x080046d5   Thumb Code   178  nrf_com.o(i.nrf_decode)
+    nrf_receive_init                         0x080047c9   Thumb Code    14  nrf_com.o(i.nrf_receive_init)
+    positionServo                            0x080047e1   Thumb Code    54  caculate.o(i.positionServo)
+    speedServo                               0x08004817   Thumb Code    30  caculate.o(i.speedServo)
+    AHBPrescTable                            0x0800483c   Data          16  system_stm32f4xx.o(.constdata)
+    APBPrescTable                            0x0800484c   Data           8  system_stm32f4xx.o(.constdata)
+    Region$$Table$$Base                      0x08004854   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08004874   Number         0  anon$$obj.o(Region$$Table)
     ifRecv_dji                               0x20000000   Data           4  main.o(.data)
     ifRecv_RS485                             0x20000004   Data           4  main.o(.data)
     ifRecv_DiPan                             0x20000008   Data           4  main.o(.data)
@@ -1724,33 +1724,36 @@ Image Symbol Table
     button_F                                 0x20000095   Data           1  nrf_com.o(.data)
     button_G                                 0x20000096   Data           1  nrf_com.o(.data)
     button_H                                 0x20000097   Data           1  nrf_com.o(.data)
-    uwTick                                   0x20000098   Data           4  stm32f4xx_hal.o(.data)
-    uwTickPrio                               0x2000009c   Data           4  stm32f4xx_hal.o(.data)
-    uwTickFreq                               0x200000a0   Data           1  stm32f4xx_hal.o(.data)
-    SystemCoreClock                          0x200000a4   Data           4  system_stm32f4xx.o(.data)
-    RS485_angle                              0x200000a8   Data           4  rs485.o(.data)
-    data3                                    0x200000ac   Data           4  rs485.o(.data)
-    data4                                    0x200000b0   Data           4  rs485.o(.data)
-    rs_decode                                0x200000b4   Data           2  rs485.o(.data)
-    hcan1                                    0x200000b8   Data          40  can.o(.bss)
-    htim2                                    0x200000e0   Data          72  tim.o(.bss)
-    htim3                                    0x20000128   Data          72  tim.o(.bss)
-    huart8                                   0x20000170   Data          68  usart.o(.bss)
-    huart1                                   0x200001b4   Data          68  usart.o(.bss)
-    huart3                                   0x200001f8   Data          68  usart.o(.bss)
-    huart6                                   0x2000023c   Data          68  usart.o(.bss)
-    hdma_uart8_rx                            0x20000280   Data          96  usart.o(.bss)
-    hdma_usart1_rx                           0x200002e0   Data          96  usart.o(.bss)
-    hdma_usart3_rx                           0x20000340   Data          96  usart.o(.bss)
-    hdma_usart6_rx                           0x200003a0   Data          96  usart.o(.bss)
-    htim4                                    0x20000400   Data          72  stm32f4xx_hal_timebase_tim.o(.bss)
-    hDJI                                     0x20000448   Data        1152  dji.o(.bss)
-    Raw_Data                                 0x200008c8   Data          12  wtr_uart.o(.bss)
-    JoyStickReceiveData                      0x200008d4   Data          18  wtr_uart.o(.bss)
-    nrfDataBag                               0x200008e6   Data          26  nrf_com.o(.bss)
-    nrfReceive                               0x20000900   Data          52  nrf_com.o(.bss)
-    RS485_ReceiveData                        0x20000934   Data          20  rs485.o(.bss)
-    __initial_sp                             0x20000d48   Data           0  startup_stm32f427xx.o(STACK)
+    zone                                     0x20000098   Data           1  nrf_com.o(.data)
+    qu_qiu                                   0x20000099   Data           1  nrf_com.o(.data)
+    she_qiu                                  0x2000009a   Data           1  nrf_com.o(.data)
+    uwTick                                   0x2000009c   Data           4  stm32f4xx_hal.o(.data)
+    uwTickPrio                               0x200000a0   Data           4  stm32f4xx_hal.o(.data)
+    uwTickFreq                               0x200000a4   Data           1  stm32f4xx_hal.o(.data)
+    SystemCoreClock                          0x200000a8   Data           4  system_stm32f4xx.o(.data)
+    RS485_angle                              0x200000ac   Data           4  rs485.o(.data)
+    data3                                    0x200000b0   Data           4  rs485.o(.data)
+    data4                                    0x200000b4   Data           4  rs485.o(.data)
+    rs_decode                                0x200000b8   Data           2  rs485.o(.data)
+    hcan1                                    0x200000bc   Data          40  can.o(.bss)
+    htim2                                    0x200000e4   Data          72  tim.o(.bss)
+    htim3                                    0x2000012c   Data          72  tim.o(.bss)
+    huart8                                   0x20000174   Data          68  usart.o(.bss)
+    huart1                                   0x200001b8   Data          68  usart.o(.bss)
+    huart3                                   0x200001fc   Data          68  usart.o(.bss)
+    huart6                                   0x20000240   Data          68  usart.o(.bss)
+    hdma_uart8_rx                            0x20000284   Data          96  usart.o(.bss)
+    hdma_usart1_rx                           0x200002e4   Data          96  usart.o(.bss)
+    hdma_usart3_rx                           0x20000344   Data          96  usart.o(.bss)
+    hdma_usart6_rx                           0x200003a4   Data          96  usart.o(.bss)
+    htim4                                    0x20000404   Data          72  stm32f4xx_hal_timebase_tim.o(.bss)
+    hDJI                                     0x2000044c   Data        1152  dji.o(.bss)
+    Raw_Data                                 0x200008cc   Data          12  wtr_uart.o(.bss)
+    JoyStickReceiveData                      0x200008d8   Data          18  wtr_uart.o(.bss)
+    nrfDataBag                               0x200008ea   Data          31  nrf_com.o(.bss)
+    nrfReceive                               0x20000909   Data          62  nrf_com.o(.bss)
+    RS485_ReceiveData                        0x20000947   Data          20  rs485.o(.bss)
+    __initial_sp                             0x20000d60   Data           0  startup_stm32f427xx.o(STACK)
 
 
 
@@ -1760,9 +1763,9 @@ Memory Map of the image
 
   Image Entry point : 0x080001ad
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00004900, Max: 0x00200000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00004930, Max: 0x00200000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00004848, Max: 0x00200000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00004874, Max: 0x00200000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1935,44 +1938,46 @@ Memory Map of the image
     0x0800422e   0x0800422e   0x00000002   PAD
     0x08004230   0x08004230   0x00000044   Code   RO          647    i.get_dji_offset    dji.o
     0x08004274   0x08004274   0x00000460   Code   RO           17    i.main              main.o
-    0x080046d4   0x080046d4   0x000000c8   Code   RO          780    i.nrf_decode        nrf_com.o
-    0x0800479c   0x0800479c   0x00000018   Code   RO          781    i.nrf_receive_init  nrf_com.o
-    0x080047b4   0x080047b4   0x00000036   Code   RO          591    i.positionServo     caculate.o
-    0x080047ea   0x080047ea   0x0000001e   Code   RO          592    i.speedServo        caculate.o
-    0x08004808   0x08004808   0x00000008   Data   RO         1638    .constdata          stm32f4xx_hal_dma.o
-    0x08004810   0x08004810   0x00000018   Data   RO         3684    .constdata          system_stm32f4xx.o
-    0x08004828   0x08004828   0x00000020   Data   RO         3815    Region$$Table       anon$$obj.o
+    0x080046d4   0x080046d4   0x000000f4   Code   RO          780    i.nrf_decode        nrf_com.o
+    0x080047c8   0x080047c8   0x00000018   Code   RO          781    i.nrf_receive_init  nrf_com.o
+    0x080047e0   0x080047e0   0x00000036   Code   RO          591    i.positionServo     caculate.o
+    0x08004816   0x08004816   0x0000001e   Code   RO          592    i.speedServo        caculate.o
+    0x08004834   0x08004834   0x00000008   Data   RO         1638    .constdata          stm32f4xx_hal_dma.o
+    0x0800483c   0x0800483c   0x00000018   Data   RO         3684    .constdata          system_stm32f4xx.o
+    0x08004854   0x08004854   0x00000020   Data   RO         3815    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM2 (Exec base: 0x10000000, Load base: 0x08004900, Size: 0x00000000, Max: 0x00010000, ABSOLUTE)
+    Execution Region RW_IRAM2 (Exec base: 0x10000000, Load base: 0x08004930, Size: 0x00000000, Max: 0x00010000, ABSOLUTE)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08004848, Size: 0x00000d48, Max: 0x00030000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08004874, Size: 0x00000d60, Max: 0x00030000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x08004848   0x00000060   Data   RW           18    .data               main.o
-    0x20000060   0x080048a8   0x00000004   Data   RW          649    .data               dji.o
-    0x20000064   0x080048ac   0x00000008   Data   RW          706    .data               wtr_can.o
-    0x2000006c   0x080048b4   0x00000004   PAD
-    0x20000070   0x080048b8   0x00000010   Data   RW          747    .data               wtr_uart.o
-    0x20000080   0x080048c8   0x00000018   Data   RW          784    .data               nrf_com.o
-    0x20000098   0x080048e0   0x00000009   Data   RW         2090    .data               stm32f4xx_hal.o
-    0x200000a1   0x080048e9   0x00000003   PAD
-    0x200000a4   0x080048ec   0x00000004   Data   RW         3685    .data               system_stm32f4xx.o
-    0x200000a8   0x080048f0   0x0000000e   Data   RW         3722    .data               rs485.o
-    0x200000b6   0x080048fe   0x00000002   PAD
-    0x200000b8        -       0x00000028   Zero   RW          231    .bss                can.o
-    0x200000e0        -       0x00000090   Zero   RW          298    .bss                tim.o
-    0x20000170        -       0x00000290   Zero   RW          348    .bss                usart.o
-    0x20000400        -       0x00000048   Zero   RW          553    .bss                stm32f4xx_hal_timebase_tim.o
-    0x20000448        -       0x00000480   Zero   RW          648    .bss                dji.o
-    0x200008c8        -       0x0000001e   Zero   RW          746    .bss                wtr_uart.o
-    0x200008e6        -       0x0000004e   Zero   RW          783    .bss                nrf_com.o
-    0x20000934        -       0x00000014   Zero   RW         3721    .bss                rs485.o
-    0x20000948        -       0x00000400   Zero   RW            1    STACK               startup_stm32f427xx.o
+    0x20000000   0x08004874   0x00000060   Data   RW           18    .data               main.o
+    0x20000060   0x080048d4   0x00000004   Data   RW          649    .data               dji.o
+    0x20000064   0x080048d8   0x00000008   Data   RW          706    .data               wtr_can.o
+    0x2000006c   0x080048e0   0x00000004   PAD
+    0x20000070   0x080048e4   0x00000010   Data   RW          747    .data               wtr_uart.o
+    0x20000080   0x080048f4   0x0000001b   Data   RW          784    .data               nrf_com.o
+    0x2000009b   0x0800490f   0x00000001   PAD
+    0x2000009c   0x08004910   0x00000009   Data   RW         2090    .data               stm32f4xx_hal.o
+    0x200000a5   0x08004919   0x00000003   PAD
+    0x200000a8   0x0800491c   0x00000004   Data   RW         3685    .data               system_stm32f4xx.o
+    0x200000ac   0x08004920   0x0000000e   Data   RW         3722    .data               rs485.o
+    0x200000ba   0x0800492e   0x00000002   PAD
+    0x200000bc        -       0x00000028   Zero   RW          231    .bss                can.o
+    0x200000e4        -       0x00000090   Zero   RW          298    .bss                tim.o
+    0x20000174        -       0x00000290   Zero   RW          348    .bss                usart.o
+    0x20000404        -       0x00000048   Zero   RW          553    .bss                stm32f4xx_hal_timebase_tim.o
+    0x2000044c        -       0x00000480   Zero   RW          648    .bss                dji.o
+    0x200008cc        -       0x0000001e   Zero   RW          746    .bss                wtr_uart.o
+    0x200008ea        -       0x0000005d   Zero   RW          783    .bss                nrf_com.o
+    0x20000947        -       0x00000014   Zero   RW         3721    .bss                rs485.o
+    0x2000095b   0x0800492e   0x00000005   PAD
+    0x20000960        -       0x00000400   Zero   RW            1    STACK               startup_stm32f427xx.o
 
 
 ==============================================================================
@@ -1988,7 +1993,7 @@ Image component sizes
        136          6          0          0          0        970   dma.o
        336         14          0          0          0       1299   gpio.o
       2326        232          0         96          0     756501   main.o
-       224         64          0         24         78       3030   nrf_com.o
+       268         76          0         27         93       3234   nrf_com.o
        136         30          0         14         20       1826   rs485.o
         36          8        428          0       1024        844   startup_stm32f427xx.o
        136         24          0          9          0       9058   stm32f4xx_hal.o
@@ -2011,9 +2016,9 @@ Image component sizes
        452         50          0         16         30       1951   wtr_uart.o
 
     ----------------------------------------------------------------------
-     16344       1084        492        184       3216     894283   Object Totals
+     16388       1096        492        188       3236     894487   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        20          0          0          9          0          0   (incl. Padding)
+        20          0          0         10          5          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2069,15 +2074,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     18012       1100        492        184       3216     883755   Grand Totals
-     18012       1100        492        184       3216     883755   ELF Image Totals
-     18012       1100        492        184          0          0   ROM Totals
+     18056       1112        492        188       3236     883959   Grand Totals
+     18056       1112        492        188       3236     883959   ELF Image Totals
+     18056       1112        492        188          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                18504 (  18.07kB)
-    Total RW  Size (RW Data + ZI Data)              3400 (   3.32kB)
-    Total ROM Size (Code + RO Data + RW Data)      18688 (  18.25kB)
+    Total RO  Size (Code + RO Data)                18548 (  18.11kB)
+    Total RW  Size (RW Data + ZI Data)              3424 (   3.34kB)
+    Total ROM Size (Code + RO Data + RW Data)      18736 (  18.30kB)
 
 ==============================================================================
 

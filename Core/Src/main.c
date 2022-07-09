@@ -59,6 +59,8 @@ int ifRecv_DiPan = 0;
 float speed = 0;
 float pitch = 0;
 float yaw = 0;
+float pitch_state = 0;
+float yaw_state = 0;
 float fetch = 0;
 
 float fetch_state = 0;
@@ -193,19 +195,17 @@ int main(void)
 				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
 			}
 			
-			positionServo(yaw,&hDJI[5]);/*==================================================================*/
-			positionServo(pitch,&hDJI[6]);/*==================================================================*/
-			speedServo(fetch,&hDJI[4]);/*==================================================================*/
+			positionServo(yaw,&hDJI[5]);
+			positionServo(pitch,&hDJI[6]);
+			speedServo(fetch,&hDJI[4]);
 			
 			if(Raw_Data.right == 1) speed = 5000;
 			else speed = 0;
 			
-			speedServo(speed,&hDJI[0]);/*==================================================================*/
-			speedServo(speed,&hDJI[1]);/*==================================================================*/
-			speedServo(-speed,&hDJI[2]);/*==================================================================*/
-			speedServo(-speed,&hDJI[3]);/*==================================================================*/
-			// speedServo(500,&hDJI[7]);/*==================================================================*/
-			
+			speedServo(speed,&hDJI[0]);
+			speedServo(speed,&hDJI[1]);
+			speedServo(-speed,&hDJI[2]);
+			speedServo(-speed,&hDJI[3]);
 		}
     //执行射球
     else if(state == 2){
@@ -214,9 +214,21 @@ int main(void)
 			speedServo(-mocalun_state,&hDJI[2]);
 			speedServo(-mocalun_state,&hDJI[3]);
 			speedServo(fetch_state,&hDJI[4]);
-			positionServo(0,&hDJI[5]);
-			positionServo(0,&hDJI[6]);
-			speedServo(0,&hDJI[7]);
+			if(zone == 0)
+			{
+			positionServo(yaw_state,&hDJI[5]);
+			positionServo(pitch_state,&hDJI[6]);
+			}	
+			if(zone == 1)
+			{
+			positionServo(yaw_state,&hDJI[5]);
+			positionServo(pitch_state,&hDJI[6]);
+			}	
+			if(zone == 2)
+			{
+			positionServo(yaw_state,&hDJI[5]);
+			positionServo(pitch_state,&hDJI[6]);
+			}	
 		}
 		//执行取球操作
 		else if(state == 1){
