@@ -19,8 +19,8 @@
             "./Drivers/CMSIS/Include",
             "./UC",
             "./UART_COM",
-            "./RS485",
-            "./MDK-ARM/RTE/_R1_DJI_FREERTOS"
+            "./MDK-ARM/RTE/_R1_DJI_FREERTOS",
+            "./RS485"
           ],
           "defineList": [
             "USE_HAL_DRIVER",
@@ -247,7 +247,7 @@
   "uploadConfig": {
     "bin": "",
     "target": "stm32f4x_stlink",
-    "interface": "stlink",
+    "interface": "cmsis-dap",
     "baseAddr": "0x08000000"
   },
   "uploadConfigMap": {
@@ -398,19 +398,43 @@
         },
         "options": "null"
       },
-      "uploader": "JLink",
+      "uploader": "OpenOCD",
       "uploadConfig": {
         "bin": "",
-        "baseAddr": "0x08000000",
-        "cpuInfo": {
-          "vendor": "ST",
-          "cpuName": "STM32F103C8"
-        },
-        "proType": 1,
-        "speed": 8000,
-        "otherCmds": ""
+        "target": "stm32f4x_stlink",
+        "interface": "stlink",
+        "baseAddr": "0x08000000"
       },
-      "uploadConfigMap": {},
+      "uploadConfigMap": {
+        "JLink": {
+          "bin": "",
+          "baseAddr": "0x08000000",
+          "cpuInfo": {
+            "vendor": "ST",
+            "cpuName": "STM32F103C8"
+          },
+          "proType": 1,
+          "speed": 8000,
+          "otherCmds": ""
+        },
+        "OpenOCD": {
+          "bin": "",
+          "target": "stm32f4x_stlink",
+          "interface": "stlink",
+          "baseAddr": "0x08000000"
+        },
+        "STLink": {
+          "bin": "",
+          "proType": "SWD",
+          "resetMode": "default",
+          "runAfterProgram": true,
+          "speed": 4000,
+          "address": "0x08000000",
+          "elFile": "None",
+          "optionBytes": ".eide/r1_dji_freertos.st.option.bytes.ini",
+          "otherCmds": ""
+        }
+      },
       "toolchain": "AC5",
       "custom_dep": {
         "name": "default",
