@@ -81,10 +81,10 @@ float close_speed_1 = -100;
 float open_speed_1 = 180;
 
 char flag = 0;//标志是否进入状�?? 
-/*状�?�机变换�???
-state = 0 状�??0 遥控器控制中间状�??? 初始态及其他任何状�?�之间的连接�???
-state = 1 状�??1 全自动取�???
-state = 2 状�??2 全自动射�??? 并准备取球
+/*状�?�机变换�????
+state = 0 状�??0 遥控器控制中间状�???? 初始态及其他任何状�?�之间的连接�????
+state = 1 状�??1 全自动取�????
+state = 2 状�??2 全自动射�???? 并准备取�?
 */
 uint32_t state = 0;
 uint32_t last_state = 3;
@@ -157,6 +157,11 @@ int main(void)
 	
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
+	
+	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+	__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
+	
+	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_12,1);
   
   RS485_init();
   /* USER CODE END 2 */
@@ -354,7 +359,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		time++;
 	}
-  /*有限机*/
+  /*有限�?*/
 	if (htim == (&htim3))
 	{	
     if(state == 0 && last_state == 0)
@@ -364,7 +369,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         enter_time = time;
 				state = 1;
 			}
-      if(Raw_Data.left == 1 && state == 0)
+      if(Raw_Data.right == 1 && state == 0)
       {
         enter_time = time;
 				state = 2;
@@ -374,7 +379,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     
 		if(state == 0 && last_state == 1)
 		{
-      if(Raw_Data.right == 1 && state == 0)
+      if(Raw_Data.left == 1 && state == 0)
       {
         enter_time = time;
 				state = 2;
@@ -406,17 +411,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             mocalun_state = 500;
             fetch_state = 0;
             //when rsdecode_exp = 125
-            if(rs_decode < 100)
+            if(rs_decode < 100)//up
             {
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
             }
-            else if(rs_decode > 150)
+            else if(rs_decode > 150)//down
             {
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
             }
-            else
+            else//stop
             {
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
