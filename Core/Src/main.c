@@ -33,6 +33,7 @@
 #include "wtr_uart.h"
 #include "nrf_com.h"
 #include "RS485.h"
+#include "main.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -80,11 +81,13 @@ uint32_t waiting_time_1 = 1000;
 float close_speed_1 = -100;
 float open_speed_1 = 180;
 
+uint32_t rs_decode_strart = 0;
+
 char flag = 0;//标志是否进入状�?? 
-/*状�?�机变换�????
-state = 0 状�??0 遥控器控制中间状�???? 初始态及其他任何状�?�之间的连接�????
-state = 1 状�??1 全自动取�????
-state = 2 状�??2 全自动射�???? 并准备取�?
+/*状�?�机变换�????
+state = 0 状�??0 遥控器控制中间状�???? 初始态及其他任何状�?�之间的连接�????
+state = 1 状�??1 全自动取�????
+state = 2 状�??2 全自动射�???? 并准备取�?
 */
 uint32_t state = 0;
 uint32_t last_state = 3;
@@ -159,7 +162,7 @@ int main(void)
 	HAL_TIM_Base_Start_IT(&htim3);
 	
 	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-	__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
+	__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
 	
 	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_12,1);
   
@@ -204,7 +207,7 @@ int main(void)
 			positionServo(pitch,&hDJI[6]);
 			speedServo(fetch,&hDJI[4]);
 			
-			if(Raw_Data.right == 1) speed = 5000;
+			if(Raw_Data.right == 1) speed = 3000;
 			else speed = 0;
 			
 			speedServo(speed,&hDJI[0]);
@@ -359,7 +362,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		time++;
 	}
-  /*有限�?*/
+  /*有限�?*/
 	if (htim == (&htim3))
 	{	
     if(state == 0 && last_state == 0)
@@ -408,16 +411,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           }
           else if((time - enter_time)<(zz_time+sj_time))//up shenjiang
           {
+            if((time - enter_time)<(zz_time+1)) rs_decode_strart = rs_decode;
             mocalun_state = 500;
             fetch_state = 0;
             //when rsdecode_exp = 125
             if(rs_decode < 100)//up
             {
+              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
+              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
             }
             else if(rs_decode > 150)//down
             {
+              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
+              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
             }
@@ -436,16 +444,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           }
           else if((time - enter_time)<(zz_time+sj_time+waiting_time+sj_time_1))//down shenjiang and open the zhuazi
           {
+            if((time - enter_time)<(zz_time+1)) rs_decode_strart = rs_decode;
             mocalun_state = 0;
             fetch_state = open_speed;
             //when rsdecode_exp = 125
             if(rs_decode < 100)
             {
+              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
+              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
             }
             else if(rs_decode > 150)
             {
+              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
+              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
             }
@@ -472,15 +485,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           }
           else if((time - enter_time)<(zz_time_1+sj_time_1))//up shenjiang
           {
+            if((time - enter_time)<(zz_time+1)) rs_decode_strart = rs_decode;
             fetch_state = 0;
             //when rsdecode_exp = 125
             if(rs_decode < 100)
             {
+              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
+              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
             }
             else if(rs_decode > 150)
             {
+              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
+              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
             }
