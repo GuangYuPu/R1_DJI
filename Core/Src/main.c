@@ -136,7 +136,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_USART3_UART_Init();
-  MX_UART8_Init();
+  MX_UART7_Init();
   /* USER CODE BEGIN 2 */
  CANFilterInit(&hcan1);
 	
@@ -329,13 +329,13 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
        UART1Decode();
     }
 		
-		if(huart->Instance == huart6.Instance)
+		else if(huart->Instance == huart6.Instance)
     {
       ifRecv_DiPan = 1;
       nrf_decode();
     }
 
-    if(huart->Instance == huart8.Instance)
+    else if(huart->Instance == huart7.Instance)
     {
       ifRecv_RS485 = 1;
       RS485_decode();

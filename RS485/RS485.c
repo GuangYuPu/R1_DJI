@@ -6,7 +6,7 @@ uint8_t RS485_ReceiveData[20];
 uint16_t rs_decode = 0;
 void RS485_init()
 {
-    HAL_UART_Receive_DMA(&huart8,RS485_ReceiveData,20);
+    HAL_UART_Receive_DMA(&huart7,RS485_ReceiveData,20);
 }
 
 void RS485_decode()
