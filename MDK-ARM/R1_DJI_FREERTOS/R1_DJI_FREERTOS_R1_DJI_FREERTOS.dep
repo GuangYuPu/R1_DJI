@@ -1,7 +1,7 @@
 Dependencies for Project 'R1_DJI_FREERTOS', Target 'R1_DJI_FREERTOS': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::ARMCC
 F (startup_stm32f427xx.s)(0x62CC3FA6)(--cpu Cortex-M4.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_R1_DJI_FREERTOS-ID:\MDK\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\MDK\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 534" --pd "_RTE_ SETA 1" --pd "STM32F427xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f427xx.lst --xref -o r1_dji_freertos\startup_stm32f427xx.o --depend r1_dji_freertos\startup_stm32f427xx.d)
-F (../Core/Src/main.c)(0x62CC4705)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../UC -I ../UART_COM -I ../RS485-I.\RTE\_R1_DJI_FREERTOS-ID:\MDK\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\MDK\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx-o r1_dji_freertos\main.o --omf_browse r1_dji_freertos\main.crf --depend r1_dji_freertos\main.d)
+F (../Core/Src/main.c)(0x62CDBF1C)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../UC -I ../UART_COM -I ../RS485-I.\RTE\_R1_DJI_FREERTOS-ID:\MDK\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\MDK\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx-o r1_dji_freertos\main.o --omf_browse r1_dji_freertos\main.crf --depend r1_dji_freertos\main.d)
 I (../Core/Inc/main.h)(0x62C86C2A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x62C3EB50)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x62CC3FA3)
@@ -44,7 +44,7 @@ I (../UC/DJI.h)(0x615B3595)
 I (../UC/wtr_can.h)(0x6149EE65)
 I (../UC/wtr_uart.h)(0x62C557C3)
 I (../UART_COM/nrf_com.h)(0x62CC40A9)
-I (../RS485/RS485.h)(0x62C87392)
+I (../RS485/RS485.h)(0x62CD27CB)
 F (../Core/Src/gpio.c)(0x62CC3F79)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../UC -I ../UART_COM -I ../RS485-I.\RTE\_R1_DJI_FREERTOS-ID:\MDK\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\MDK\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx-o r1_dji_freertos\gpio.o --omf_browse r1_dji_freertos\gpio.crf --depend r1_dji_freertos\gpio.d)
 I (../Core/Inc/gpio.h)(0x62C86C26)
 I (../Core/Inc/main.h)(0x62C86C2A)
@@ -1073,8 +1073,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x62C3EB50)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x62C3EB50)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x62C3EB50)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x62C3EB50)
-F (..\RS485\RS485.c)(0x62CC3C24)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../UC -I ../UART_COM -I ../RS485-I.\RTE\_R1_DJI_FREERTOS-ID:\MDK\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\MDK\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx-o r1_dji_freertos\rs485.o --omf_browse r1_dji_freertos\rs485.crf --depend r1_dji_freertos\rs485.d)
-I (..\RS485\RS485.h)(0x62C87392)
+F (..\RS485\RS485.c)(0x62CD33DC)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../UC -I ../UART_COM -I ../RS485-I.\RTE\_R1_DJI_FREERTOS-ID:\MDK\ARM\PACK\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\MDK\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="534" -D_RTE_ -DSTM32F427xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F427xx-o r1_dji_freertos\rs485.o --omf_browse r1_dji_freertos\rs485.crf --depend r1_dji_freertos\rs485.d)
+I (..\RS485\RS485.h)(0x62CD27CB)
 I (../Core/Inc/main.h)(0x62C86C2A)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x62C3EB50)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x62CC3FA3)

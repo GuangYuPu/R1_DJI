@@ -53,23 +53,27 @@ compiling main.c...
   void RS485_init();
 ../RS485/RS485.h(7): warning:  #1295-D: Deprecated declaration RS485_decode - give arg types
   void RS485_decode();
-../RS485/RS485.h(13): warning:  #1-D: last line of file ends without a newline
+../RS485/RS485.h(14): warning:  #1-D: last line of file ends without a newline
   #endif
-../Core/Src/main.c(164): warning:  #188-D: enumerated type mixed with another type
+../Core/Src/main.c(171): warning:  #188-D: enumerated type mixed with another type
   	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_12,1);
-../Core/Src/main.c(178): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-       	if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
-../Core/Src/main.c(179): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
-../Core/Src/main.c(180): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
-../Core/Src/main.c(181): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
-../Core/Src/main.c: 17 warnings, 0 errors
+../Core/Src/main.c(185): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+       	if((Raw_Data.ch2-1024)>100) pitch += 0.05;/*==================================================================*/
+../Core/Src/main.c(186): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if((Raw_Data.ch2-1024)<-100) pitch -= 0.05;/*==================================================================*/
+../Core/Src/main.c(187): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if((Raw_Data.ch3-1024)>100) yaw -= 0.1;/*==================================================================*/
+../Core/Src/main.c(188): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if((Raw_Data.ch3-1024)<-100) yaw += 0.1;/*==================================================================*/
+../Core/Src/main.c(356): warning:  #223-D: function "abs" declared implicitly
+                if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-ref_rs_decode)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, pwm_init);
+../Core/Src/main.c(363): warning:  #223-D: function "abs" declared implicitly
+                if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-ref_rs_decode)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 399);
+../Core/Src/main.c: 19 warnings, 0 errors
 linking...
-Program Size: Code=19472 RO-data=492 RW-data=196 ZI-data=3236  
+Program Size: Code=19920 RO-data=492 RW-data=208 ZI-data=3232  
 FromELF: creating hex file...
-"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 18 Warning(s).
+"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 20 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -93,7 +97,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.4.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

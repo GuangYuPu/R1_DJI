@@ -53,32 +53,101 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
 int ifRecv_dji = 0;
 int ifRecv_RS485 = 0;
 int ifRecv_DiPan = 0;
 
+int pwm_init = 750;
+
 float speed = 0;
 float pitch = 0;
 float yaw = 0;
-float pitch_state = 0;
-float yaw_state = 0;
 float fetch = 0;
+
+float pianhang_state_zone0 = 0;
+float yangjiao_state_zone0 = 0;
+float sheqiu_servo_zone0 = 395;
+float mocalun_speed_zone0 = 5000;
+
+float pianhang_state_zone1 = 0;
+float yangjiao_state_zone1 = 0;
+float sheqiu_servo_zone1 = 395;
+float mocalun_speed_zone1 = 5000;
+
+float pianhang_state_zone2 = 0;
+float yangjiao_state_zone2 = 0;
+float sheqiu_servo_zone2 = 395;
+float mocalun_speed_zone2 = 5000;
+
+float pianhang_state_zone3 = 0;
+float yangjiao_state_zone3 = 0;
+float sheqiu_servo_zone3 = 395;
+float mocalun_speed_zone3 = 5000;
+
+float pianhang_state_zone4 = 0;
+float yangjiao_state_zone4 = 0;
+float sheqiu_servo_zone4 = 395;
+float mocalun_speed_zone4 = 5000;
+
+float pianhang_state_zone5 = 0;
+float yangjiao_state_zone5 = 0;
+float sheqiu_servo_zone5 = 395;
+float mocalun_speed_zone5 = 5000;
+
+float pianhang_state_zone6 = 0;
+float yangjiao_state_zone6 = 0;
+float sheqiu_servo_zone6 = 395;
+float mocalun_speed_zone6 = 5000;
+
+float pianhang_state_zone7 = 0;
+float yangjiao_state_zone7 = 0;
+float sheqiu_servo_zone7 = 395;
+float mocalun_speed_zone7 = 5000;
+
+float pianhang_state_zone8 = 0;
+float yangjiao_state_zone8 = 0;
+float sheqiu_servo_zone8 = 395;
+float mocalun_speed_zone8 = 5000;
+
+float pianhang_state_zone9 = 0;
+float yangjiao_state_zone9 = 0;
+float sheqiu_servo_zone9 = 395;
+float mocalun_speed_zone9 = 5000;
+
+float pianhang_state_zone10 = 0;
+float yangjiao_state_zone10 = 0;
+float sheqiu_servo_zone10 = 395;
+float mocalun_speed_zone10 = 5000;
+
+float pianhang_state_zone11 = 0;
+float yangjiao_state_zone11 = 0;
+float sheqiu_servo_zone11 = 395;
+float mocalun_speed_zone11 = 5000;
+
+float pianhang_state_zone12 = 0;
+float yangjiao_state_zone12 = 0;
+float sheqiu_servo_zone12 = 395;
+float mocalun_speed_zone12 = 5000;
 
 float fetch_state = 0;
 float mocalun_state = 0;
+
 uint32_t time = 0;
 uint32_t enter_time = 0;
 
-uint32_t sj_time = 200;
+//parameters for sheqiu
+uint32_t sj_time = 300;
 uint32_t zz_time = 1000;
 uint32_t waiting_time = 1000;
 float close_speed = -100;
-float open_speed = 180;
+float open_speed = 60;
 
-uint32_t sj_time_1 = 1000;
-uint32_t zz_time_1 = 500;
-uint32_t waiting_time_1 = 1000;
-float close_speed_1 = -100;
+//parameter for quqiu
+uint32_t sj_time_1 = 1500;
+uint32_t zz_time_1 = 1000;
+uint32_t waiting_time_1 = 800;
+float close_speed_1 = -150;
 float open_speed_1 = 180;
 
 uint32_t rs_decode_strart = 0;
@@ -90,11 +159,12 @@ state = 1 状�??1 全自动取�????
 state = 2 状�??2 全自动射�???? 并准备取�?
 */
 uint32_t state = 0;
-uint32_t last_state = 3;
+uint32_t last_state = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void zz_sj_servo(float ref_rs_decode);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -162,7 +232,7 @@ int main(void)
 	HAL_TIM_Base_Start_IT(&htim3);
 	
 	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-	__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
+	__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, pwm_init);
 	
 	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_12,1);
   
@@ -178,10 +248,10 @@ int main(void)
     }
 		if(state == 0)
 		{
-     	if((Raw_Data.ch2-1024)>100) pitch += 0.25;/*==================================================================*/
-			if((Raw_Data.ch2-1024)<-100) pitch -= 0.25;/*==================================================================*/
-			if((Raw_Data.ch3-1024)>100) yaw -= 0.15;/*==================================================================*/
-			if((Raw_Data.ch3-1024)<-100) yaw += 0.15;/*==================================================================*/
+     	if((Raw_Data.ch2-1024)>100) pitch += 0.05;/*==================================================================*/
+			if((Raw_Data.ch2-1024)<-100) pitch -= 0.05;/*==================================================================*/
+			if((Raw_Data.ch3-1024)>100) yaw -= 0.1;/*==================================================================*/
+			if((Raw_Data.ch3-1024)<-100) yaw += 0.1;/*==================================================================*/
 			
 			if((Raw_Data.ch0-1024)>100) fetch = 100;/*==================================================================*/
 			else if((Raw_Data.ch0-1024)<-100) fetch = -100;/*==================================================================*/
@@ -224,18 +294,68 @@ int main(void)
 			speedServo(fetch_state,&hDJI[4]);
 			if(zone == 0)
 			{
-			positionServo(yaw_state,&hDJI[5]);
-			positionServo(pitch_state,&hDJI[6]);
+			positionServo(yangjiao_state_zone0,&hDJI[5]);
+			positionServo(pianhang_state_zone0,&hDJI[6]);
 			}	
-			if(zone == 1)
+			else if(zone == 1)
 			{
-			positionServo(yaw_state,&hDJI[5]);
-			positionServo(pitch_state,&hDJI[6]);
+			positionServo(yangjiao_state_zone1,&hDJI[5]);
+			positionServo(pianhang_state_zone1,&hDJI[6]);
 			}	
-			if(zone == 2)
+			else if(zone == 2)
 			{
-			positionServo(yaw_state,&hDJI[5]);
-			positionServo(pitch_state,&hDJI[6]);
+			positionServo(yangjiao_state_zone2,&hDJI[5]);
+			positionServo(pianhang_state_zone2,&hDJI[6]);
+			}	
+      else if(zone == 3)
+			{
+			positionServo(yangjiao_state_zone3,&hDJI[5]);
+			positionServo(pianhang_state_zone3,&hDJI[6]);
+			}	
+      else if(zone == 4)
+			{
+			positionServo(yangjiao_state_zone4,&hDJI[5]);
+			positionServo(pianhang_state_zone4,&hDJI[6]);
+			}	
+      else if(zone == 5)
+			{
+			positionServo(yangjiao_state_zone5,&hDJI[5]);
+			positionServo(pianhang_state_zone5,&hDJI[6]);
+			}	
+      else if(zone == 6)
+			{
+			positionServo(yangjiao_state_zone6,&hDJI[5]);
+			positionServo(pianhang_state_zone6,&hDJI[6]);
+			}	
+      else if(zone == 7)
+			{
+			positionServo(yangjiao_state_zone7,&hDJI[5]);
+			positionServo(pianhang_state_zone7,&hDJI[6]);
+			}	
+      else if(zone == 8)
+			{
+			positionServo(yangjiao_state_zone8,&hDJI[5]);
+			positionServo(pianhang_state_zone8,&hDJI[6]);
+			}	
+      else if(zone == 9)
+			{
+			positionServo(yangjiao_state_zone9,&hDJI[5]);
+			positionServo(pianhang_state_zone9,&hDJI[6]);
+			}	
+      else if(zone == 10)
+			{
+			positionServo(yangjiao_state_zone10,&hDJI[5]);
+			positionServo(pianhang_state_zone10,&hDJI[6]);
+			}	
+      else if(zone == 11)
+			{
+			positionServo(yangjiao_state_zone11,&hDJI[5]);
+			positionServo(pianhang_state_zone11,&hDJI[6]);
+			}	
+      else if(zone == 12)
+			{
+			positionServo(yangjiao_state_zone12,&hDJI[5]);
+			positionServo(pianhang_state_zone12,&hDJI[6]);
 			}	
 		}
 		//执行取球操作
@@ -247,7 +367,7 @@ int main(void)
 			speedServo(fetch_state,&hDJI[4]);
 			positionServo(0,&hDJI[5]);
 			positionServo(0,&hDJI[6]);
-			positionServo(0,&hDJI[7]);
+			// positionServo(0,&hDJI[7]);
 		}
 		
 		CanTransmit_DJI_1234(&hcan1,
@@ -344,6 +464,29 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
       RS485_decode();
     }
 }
+void zz_sj_servo(float ref_rs_decode)
+{
+  //when rsdecode_exp = ref_rs_decode
+            if(rs_decode < ref_rs_decode-2)//up
+            {
+              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-ref_rs_decode)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, pwm_init);
+              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 999);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
+            }
+            else if(rs_decode > ref_rs_decode+2)//down
+            {
+              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-ref_rs_decode)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 399);
+              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+            }
+            else//stop
+            {
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+            }
+}
 /* USER CODE END 4 */
 
 /**
@@ -402,71 +545,114 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     
         if(state == 2)
 					{
-          if((time - enter_time)<(zz_time))//open mocalun and open the zhuazi
+          float mocalun_speed = 0;
+          float sheqiu_servo = 395; 
+          switch (zone)
           {
-            mocalun_state = 500;
+            case /* constant-expression */0:
+            /* code */
+            mocalun_speed = mocalun_speed_zone0;
+            sheqiu_servo = sheqiu_servo_zone0;
+            break;
+            case /* constant-expression */1:
+            /* code */
+            mocalun_speed = mocalun_speed_zone1;
+            sheqiu_servo = sheqiu_servo_zone1;
+            break;
+            case /* constant-expression */2:
+            /* code */
+            mocalun_speed = mocalun_speed_zone2;
+            sheqiu_servo = sheqiu_servo_zone2;
+            break;
+            case /* constant-expression */3:
+            /* code */
+            mocalun_speed = mocalun_speed_zone3;
+            sheqiu_servo = sheqiu_servo_zone3;
+            break;
+            case /* constant-expression */4:
+            /* code */
+            mocalun_speed = mocalun_speed_zone4;
+            sheqiu_servo = sheqiu_servo_zone4;
+            break;
+            case /* constant-expression */5:
+            /* code */
+            mocalun_speed = mocalun_speed_zone5;
+            sheqiu_servo = sheqiu_servo_zone5;
+            break;
+            case /* constant-expression */6:
+            /* code */
+            mocalun_speed = mocalun_speed_zone6;
+            sheqiu_servo = sheqiu_servo_zone6;
+            break;
+            case /* constant-expression */7:
+            /* code */
+            mocalun_speed = mocalun_speed_zone7;
+            sheqiu_servo = sheqiu_servo_zone7;
+            break;
+            case /* constant-expression */8:
+            /* code */
+            mocalun_speed = mocalun_speed_zone8;
+            sheqiu_servo = sheqiu_servo_zone8;
+            break;
+            case /* constant-expression */9:
+            /* code */
+            mocalun_speed = mocalun_speed_zone9;
+            sheqiu_servo = sheqiu_servo_zone9;
+            break;
+            case /* constant-expression */10:
+            /* code */
+            mocalun_speed = mocalun_speed_zone10;
+            sheqiu_servo = sheqiu_servo_zone10;
+            break;
+            case /* constant-expression */11:
+            /* code */
+            mocalun_speed = mocalun_speed_zone11;
+            sheqiu_servo = sheqiu_servo_zone11;
+            break;
+            case /* constant-expression */12:
+            /* code */
+            mocalun_speed = mocalun_speed_zone12;
+            sheqiu_servo = sheqiu_servo_zone12;
+            break;
+          default:
+            mocalun_speed = 0;
+            sheqiu_servo = 395;
+            break;
+          }
+          if((time - enter_time)<(500))
+          {
+            mocalun_state = 0;
+            fetch_state = 0;
+            if((time - enter_time)<(1)) rs_decode_strart = rs_decode;
+            zz_sj_servo(325);
+          }
+          else if((time - enter_time)<(zz_time+500))//open mocalun and open the zhuazi
+          {
+            mocalun_state = mocalun_speed;
             fetch_state = 0;
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
           }
-          else if((time - enter_time)<(zz_time+sj_time))//up shenjiang
+          else if((time - enter_time)<(zz_time+sj_time+500))//up shenjiang
           {
-            if((time - enter_time)<(zz_time+1)) rs_decode_strart = rs_decode;
-            mocalun_state = 500;
+            mocalun_state = mocalun_speed;
             fetch_state = 0;
-            //when rsdecode_exp = 125
-            if(rs_decode < 100)//up
-            {
-              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
-              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
-            }
-            else if(rs_decode > 150)//down
-            {
-              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
-              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-            }
-            else//stop
-            {
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-            }
+            if((time - enter_time)<(zz_time+500+1)) rs_decode_strart = rs_decode;
+            zz_sj_servo(sheqiu_servo);
           }
-          else if((time - enter_time)<(zz_time+sj_time+waiting_time))//wait for shooting
+          else if((time - enter_time)<(zz_time+sj_time+waiting_time+500))//wait for shooting
           {
-            mocalun_state = 500;
+            mocalun_state = mocalun_speed;
             fetch_state = 0;
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
           }
-          else if((time - enter_time)<(zz_time+sj_time+waiting_time+sj_time_1))//down shenjiang and open the zhuazi
+          else if((time - enter_time)<(zz_time+sj_time+waiting_time+zz_time+500))//down shenjiang and open the zhuazi
           {
-            if((time - enter_time)<(zz_time+1)) rs_decode_strart = rs_decode;
             mocalun_state = 0;
             fetch_state = open_speed;
-            //when rsdecode_exp = 125
-            if(rs_decode < 100)
-            {
-              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
-              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
-            }
-            else if(rs_decode > 150)
-            {
-              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
-              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-            }
-            else
-            {
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-            }
+            if((time - enter_time)<(zz_time+sj_time+waiting_time+1+500)) rs_decode_strart = rs_decode;
+            zz_sj_servo(300);
           }
           else{
 						fetch_state = 0;
@@ -477,36 +663,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		
     else if(state == 1)
 					{
-          if((time - enter_time)<(zz_time_1))//close zhuazi
+          if((time - enter_time)<(500))
+          {
+            fetch_state = 0;
+            if((time - enter_time)<(1)) rs_decode_strart = rs_decode;
+            zz_sj_servo(180);
+          }
+          else if((time - enter_time)<(zz_time_1+500))//close zhuazi
           {
             fetch_state = close_speed_1;
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
           }
-          else if((time - enter_time)<(zz_time_1+sj_time_1))//up shenjiang
+          else if((time - enter_time)<(zz_time_1+sj_time_1+500))//up shenjiang
           {
-            if((time - enter_time)<(zz_time+1)) rs_decode_strart = rs_decode;
             fetch_state = 0;
-            //when rsdecode_exp = 125
-            if(rs_decode < 100)
-            {
-              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
-              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
-            }
-            else if(rs_decode > 150)
-            {
-              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-125)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
-              else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 799);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-            }
-            else
-            {
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
-            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-            }
+            if((time - enter_time)<(zz_time_1+1+500)) rs_decode_strart = rs_decode;
+            zz_sj_servo(325);
           }
           else{
 						fetch_state = 0;
