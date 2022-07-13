@@ -150,6 +150,9 @@ uint32_t waiting_time_1 = 800;
 float close_speed_1 = -150;
 float open_speed_1 = 180;
 
+float open_pos = 60;
+float close_pos = 60;
+
 uint32_t rs_decode_strart = 0;
 
 char flag = 0;//标志是否进入状�?? 
@@ -291,7 +294,7 @@ int main(void)
 			speedServo(mocalun_state,&hDJI[1]);
 			speedServo(-mocalun_state,&hDJI[2]);
 			speedServo(-mocalun_state,&hDJI[3]);
-			speedServo(fetch_state,&hDJI[4]);
+			positionServo(fetch_state,&hDJI[4]);
 			if(zone == 0)
 			{
 			positionServo(yangjiao_state_zone0,&hDJI[5]);
@@ -364,7 +367,7 @@ int main(void)
 			speedServo(0,&hDJI[1]);
 			speedServo(0,&hDJI[2]);
 			speedServo(0,&hDJI[3]);
-			speedServo(fetch_state,&hDJI[4]);
+			positionServo(fetch_state,&hDJI[4]);
 			positionServo(0,&hDJI[5]);
 			positionServo(0,&hDJI[6]);
 			// positionServo(0,&hDJI[7]);
@@ -650,12 +653,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           else if((time - enter_time)<(zz_time+sj_time+waiting_time+zz_time+500))//down shenjiang and open the zhuazi
           {
             mocalun_state = 0;
-            fetch_state = open_speed;
+            fetch_state = open_pos;
             if((time - enter_time)<(zz_time+sj_time+waiting_time+1+500)) rs_decode_strart = rs_decode;
             zz_sj_servo(300);
           }
           else{
-						fetch_state = 0;
+						fetch_state = open_pos;
             last_state = state;
             state = 0;
           }
@@ -665,24 +668,24 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 					{
           if((time - enter_time)<(500))
           {
-            fetch_state = 0;
+            fetch_state = open_pos;
             if((time - enter_time)<(1)) rs_decode_strart = rs_decode;
             zz_sj_servo(180);
           }
           else if((time - enter_time)<(zz_time_1+500))//close zhuazi
           {
-            fetch_state = close_speed_1;
+            fetch_state = close_pos;
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
           }
           else if((time - enter_time)<(zz_time_1+sj_time_1+500))//up shenjiang
           {
-            fetch_state = 0;
+            fetch_state = close_pos;
             if((time - enter_time)<(zz_time_1+1+500)) rs_decode_strart = rs_decode;
             zz_sj_servo(325);
           }
           else{
-						fetch_state = 0;
+						fetch_state = close_pos;
             last_state = state;
             state = 0;
             flag = 0;
