@@ -58,16 +58,16 @@ int ifRecv_dji = 0;
 int ifRecv_RS485 = 0;
 int ifRecv_DiPan = 0;
 
-int pwm_init = 750;
+int pwm_init = 799;
 
 float speed = 0;
 float pitch = 0;
 float yaw = 0;
 float fetch = 0;
 
-float pianhang_state_zone0 = 0;
-float yangjiao_state_zone0 = 0;
-float sheqiu_servo_zone0 = 395;
+float pianhang_state_zone0 = 55.649;
+float yangjiao_state_zone0 = -24;
+float sheqiu_servo_zone0 = 383;
 float mocalun_speed_zone0 = 5000;
 
 float pianhang_state_zone1 = 0;
@@ -150,8 +150,8 @@ uint32_t waiting_time_1 = 800;
 float close_speed_1 = -150;
 float open_speed_1 = 180;
 
-float open_pos = 60;
-float close_pos = 60;
+float open_pos = 22;
+float close_pos = 0;
 
 uint32_t rs_decode_strart = 0;
 
@@ -167,9 +167,8 @@ uint32_t last_state = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void zz_sj_servo(float ref_rs_decode);
 /* USER CODE BEGIN PFP */
-
+void zz_sj_servo(float ref_rs_decode);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -258,7 +257,7 @@ int main(void)
 			
 			if((Raw_Data.ch0-1024)>100) fetch = 100;/*==================================================================*/
 			else if((Raw_Data.ch0-1024)<-100) fetch = -100;/*==================================================================*/
-			else 	fetch = 0;
+			else fetch = 0;
 			
 			if((Raw_Data.ch1-1024)>100) 
 			{
@@ -653,9 +652,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           else if((time - enter_time)<(zz_time+sj_time+waiting_time+zz_time+500))//down shenjiang and open the zhuazi
           {
             mocalun_state = 0;
-            fetch_state = open_pos;
+            fetch_state = 0;
             if((time - enter_time)<(zz_time+sj_time+waiting_time+1+500)) rs_decode_strart = rs_decode;
-            zz_sj_servo(300);
+            zz_sj_servo(270);
+          }
+					else if((time - enter_time)<(zz_time+sj_time+waiting_time+zz_time+500+500))//down shenjiang and open the zhuazi
+          {
+            mocalun_state = 0;
+            fetch_state = open_pos;
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
           }
           else{
 						fetch_state = open_pos;
@@ -670,7 +676,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           {
             fetch_state = open_pos;
             if((time - enter_time)<(1)) rs_decode_strart = rs_decode;
-            zz_sj_servo(180);
+            zz_sj_servo(185);
           }
           else if((time - enter_time)<(zz_time_1+500))//close zhuazi
           {

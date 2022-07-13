@@ -12,14 +12,14 @@ void DJI_Init(){
         hDJI[i].speedPID.KI = 1;
         hDJI[i].speedPID.KD = 1;
         hDJI[i].speedPID.outputMax = 10000;
-		if(i == 4) hDJI[i].speedPID.outputMax = 3000;
+//		if(i == 4) hDJI[i].speedPID.outputMax = 5000;
 
         hDJI[i].posPID.KP = 80.0f;
-        hDJI[i].posPID.KI = 0.0f;
+        hDJI[i].posPID.KI = 1.0f;
         hDJI[i].posPID.KD =0.0f;
         hDJI[i].posPID.outputMax = 5000;
-		if((i == 4) || (i == 6) || (i == 5)) hDJI[i].posPID.outputMax = 2000;
-		hDJI[i].posPID.outputMin = 1000;
+		if((i == 4) || (i == 6) || (i == 5)) hDJI[i].posPID.outputMax = 700;
+		hDJI[i].posPID.outputMin = 0;
         
 		if( hDJI[i].motorType == M3508 ){
 			hDJI[i].reductionRate = 3591.0f/187.0f;//2006减速比为36 3508减速比约为19
