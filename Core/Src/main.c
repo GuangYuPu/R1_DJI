@@ -181,7 +181,7 @@ void zz_sj_servo(float ref_rs_decode);
   * @retval int
   */
 int main(void)
-{
+	{
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
