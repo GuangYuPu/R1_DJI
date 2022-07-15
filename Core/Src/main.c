@@ -131,6 +131,71 @@ float yangjiao_state_zone12 = 0;
 float sheqiu_servo_zone12 = 395;
 float mocalun_speed_zone12 = 5000;
 
+float pianhang_state_zone13 = 0;
+float yangjiao_state_zone13 = 0;
+float sheqiu_servo_zone13 = 395;
+float mocalun_speed_zone13 = 5000;
+
+float pianhang_state_zone14 = 0;
+float yangjiao_state_zone14 = 0;
+float sheqiu_servo_zone14 = 395;
+float mocalun_speed_zone14 = 5000;
+
+float pianhang_state_zone15 = 0;
+float yangjiao_state_zone15 = 0;
+float sheqiu_servo_zone15 = 395;
+float mocalun_speed_zone15 = 5000;
+
+float pianhang_state_zone16 = 0;
+float yangjiao_state_zone16 = 0;
+float sheqiu_servo_zone16 = 395;
+float mocalun_speed_zone16 = 5000;
+
+float pianhang_state_zone17 = 0;
+float yangjiao_state_zone17 = 0;
+float sheqiu_servo_zone17 = 395;
+float mocalun_speed_zone17 = 5000;
+
+float pianhang_state_zone18 = 0;
+float yangjiao_state_zone18= 0;
+float sheqiu_servo_zone18 = 395;
+float mocalun_speed_zone18 = 5000;
+
+float pianhang_state_zone19 = 0;
+float yangjiao_state_zone19 = 0;
+float sheqiu_servo_zone19 = 395;
+float mocalun_speed_zone19 = 5000;
+
+float pianhang_state_zone20 = 0;
+float yangjiao_state_zone20 = 0;
+float sheqiu_servo_zone20 = 395;
+float mocalun_speed_zone20 = 5000;
+
+float pianhang_state_zone21 = 0;
+float yangjiao_state_zone21 = 0;
+float sheqiu_servo_zone21 = 395;
+float mocalun_speed_zone21 = 5000;
+
+float pianhang_state_zone22 = 0;
+float yangjiao_state_zone22 = 0;
+float sheqiu_servo_zone22 = 395;
+float mocalun_speed_zone22 = 5000;
+
+float pianhang_state_zone23 = 0;
+float yangjiao_state_zone23 = 0;
+float sheqiu_servo_zone23 = 395;
+float mocalun_speed_zone23 = 5000;
+
+float pianhang_state_zone24 = 0;
+float yangjiao_state_zone24 = 0;
+float sheqiu_servo_zone24 = 395;
+float mocalun_speed_zone24 = 5000;
+
+float pianhang_state_zone25 = 0;
+float yangjiao_state_zone25 = 0;
+float sheqiu_servo_zone25 = 395;
+float mocalun_speed_zone25 = 5000;
+
 float fetch_state = 0;
 float mocalun_state = 0;
 
@@ -273,7 +338,7 @@ int main(void)
 			positionServo(pitch,&hDJI[6]);
 			speedServo(fetch,&hDJI[4]);
 			
-			if(Raw_Data.right == 1) speed = 3000;
+			if(Raw_Data.right == 1) speed = 5000;
 			else speed = 0;
 			
 			speedServo(speed,&hDJI[0]);
@@ -352,6 +417,71 @@ int main(void)
 			{
 			positionServo(yangjiao_state_zone12,&hDJI[5]);
 			positionServo(pianhang_state_zone12,&hDJI[6]);
+			}
+      else if(zone == 13)
+			{
+			positionServo(yangjiao_state_zone13,&hDJI[5]);
+			positionServo(pianhang_state_zone13,&hDJI[6]);
+			}	
+			else if(zone == 14)
+			{
+			positionServo(yangjiao_state_zone14,&hDJI[5]);
+			positionServo(pianhang_state_zone14,&hDJI[6]);
+			}	
+      else if(zone == 15)
+			{
+			positionServo(yangjiao_state_zone15,&hDJI[5]);
+			positionServo(pianhang_state_zone15,&hDJI[6]);
+			}	
+      else if(zone == 16)
+			{
+			positionServo(yangjiao_state_zone16,&hDJI[5]);
+			positionServo(pianhang_state_zone16,&hDJI[6]);
+			}	
+      else if(zone == 17)
+			{
+			positionServo(yangjiao_state_zone17,&hDJI[5]);
+			positionServo(pianhang_state_zone17,&hDJI[6]);
+			}	
+      else if(zone == 18)
+			{
+			positionServo(yangjiao_state_zone18,&hDJI[5]);
+			positionServo(pianhang_state_zone18,&hDJI[6]);
+			}	
+      else if(zone == 19)
+			{
+			positionServo(yangjiao_state_zone19,&hDJI[5]);
+			positionServo(pianhang_state_zone19,&hDJI[6]);
+			}	
+      else if(zone == 20)
+			{
+			positionServo(yangjiao_state_zone20,&hDJI[5]);
+			positionServo(pianhang_state_zone20,&hDJI[6]);
+			}	
+      else if(zone == 21)
+			{
+			positionServo(yangjiao_state_zone21,&hDJI[5]);
+			positionServo(pianhang_state_zone21,&hDJI[6]);
+			}	
+      else if(zone == 22)
+			{
+			positionServo(yangjiao_state_zone22,&hDJI[5]);
+			positionServo(pianhang_state_zone22,&hDJI[6]);
+			}	
+      else if(zone == 23)
+			{
+			positionServo(yangjiao_state_zone23,&hDJI[5]);
+			positionServo(pianhang_state_zone23,&hDJI[6]);
+			}	
+      else if(zone == 24)
+			{
+			positionServo(yangjiao_state_zone24,&hDJI[5]);
+			positionServo(pianhang_state_zone24,&hDJI[6]);
+			}
+      else if(zone == 25)
+			{
+			positionServo(yangjiao_state_zone25,&hDJI[5]);
+			positionServo(pianhang_state_zone25,&hDJI[6]);
 			}
 		}
 		//执行取球操作
@@ -498,11 +628,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if(state == 0 && last_state == 0)
 		{
 			if(Raw_Data.right == 2 && state == 0)
+      // if((button_E == 1 || button_C == 1) && button_B == 1)
       {
         enter_time = time;
 				state = 1;
 			}
       if(Raw_Data.right == 1 && state == 0)
+      // if((button_E == 1 || button_F == 1) && button_B == 1)
       {
         enter_time = time;
 				state = 2;
@@ -513,6 +645,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(state == 0 && last_state == 1)
 		{
       if(Raw_Data.left == 1 && state == 0)
+      // if((button_E == 1 || button_F == 1) && button_B == 1)
       {
         enter_time = time;
 				state = 2;
@@ -521,8 +654,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     
 		if(state == 0 && last_state == 2)
+    //
 		{
-      if(Raw_Data.right == 2 && state == 0)
+      if(Raw_Data.left == 2 && state == 0)
+      // if((button_E == 1 || button_C == 1) && button_B == 1)
       {
         enter_time = time;
 				state = 1;
