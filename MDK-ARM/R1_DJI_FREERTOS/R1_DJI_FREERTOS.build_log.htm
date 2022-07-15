@@ -55,21 +55,11 @@ compiling main.c...
   void RS485_decode();
 ../RS485/RS485.h(14): warning:  #1-D: last line of file ends without a newline
   #endif
-../Core/Src/main.c(233): warning:  #188-D: enumerated type mixed with another type
-  	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_12,1);
-../Core/Src/main.c(247): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-       	if((Raw_Data.ch2-1024)>100) pitch += 0.05;/*==================================================================*/
-../Core/Src/main.c(248): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if((Raw_Data.ch2-1024)<-100) pitch -= 0.05;/*==================================================================*/
-../Core/Src/main.c(249): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if((Raw_Data.ch3-1024)>100) yaw -= 0.1;/*==================================================================*/
-../Core/Src/main.c(250): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			if((Raw_Data.ch3-1024)<-100) yaw += 0.1;/*==================================================================*/
-../Core/Src/main.c: 17 warnings, 0 errors
+../Core/Src/main.c: 12 warnings, 0 errors
 linking...
-Program Size: Code=21076 RO-data=492 RW-data=408 ZI-data=3160  
+Program Size: Code=19420 RO-data=492 RW-data=616 ZI-data=3160  
 FromELF: creating hex file...
-"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 18 Warning(s).
+"R1_DJI_FREERTOS\R1_DJI_FREERTOS.axf" - 0 Error(s), 13 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -93,7 +83,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.4.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

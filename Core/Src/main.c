@@ -68,7 +68,7 @@ float fetch = 0;
 
 float pianhang_state_zone[26] = {55.649,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 float yangjiao_state_zone[26] = {-24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-float sheqiu_servo_zone[26]  =  {383,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+float sheqiu_servo_zone[26]  =  {790,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 float mocalun_speed_zone[26] =  {5000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 float fetch_state = 0;
@@ -90,7 +90,7 @@ float close_speed_1 = -150;
 float open_speed_1 = 180;
 
 float open_pos = 22;
-float close_pos = 0;
+float close_pos = -5;
 
 uint32_t rs_decode_strart = 0;
 
@@ -427,7 +427,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             mocalun_state = 0;
             fetch_state = 0;
             if((time - enter_time)<(1)) rs_decode_strart = rs_decode;
-            zz_sj_servo(325);
+            zz_sj_servo(720);
           }
           else if((time - enter_time)<(zz_time+500))//open mocalun and open the zhuazi
           {
@@ -455,7 +455,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
             mocalun_state = 0;
             fetch_state = 0;
             if((time - enter_time)<(zz_time+sj_time+waiting_time+1+500)) rs_decode_strart = rs_decode;
-            zz_sj_servo(270);
+            zz_sj_servo(665);
           }
 					else if((time - enter_time)<(zz_time+sj_time+waiting_time+zz_time+500+500))//down shenjiang and open the zhuazi
           {
@@ -477,7 +477,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           {
             fetch_state = open_pos;
             if((time - enter_time)<(1)) rs_decode_strart = rs_decode;
-            zz_sj_servo(185);
+            zz_sj_servo(580);
           }
           else if((time - enter_time)<(zz_time_1+500))//close zhuazi
           {
@@ -489,7 +489,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           {
             fetch_state = close_pos;
             if((time - enter_time)<(zz_time_1+1+500)) rs_decode_strart = rs_decode;
-            zz_sj_servo(325);
+            zz_sj_servo(720);
           }
           else{
 						fetch_state = close_pos;
