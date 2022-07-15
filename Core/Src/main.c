@@ -66,135 +66,10 @@ float pitch = 0;
 float yaw = 0;
 float fetch = 0;
 
-float pianhang_state_zone0 = 55.649;
-float yangjiao_state_zone0 = -24;
-float sheqiu_servo_zone0 = 383;
-float mocalun_speed_zone0 = 5000;
-
-float pianhang_state_zone1 = 0;
-float yangjiao_state_zone1 = 0;
-float sheqiu_servo_zone1 = 395;
-float mocalun_speed_zone1 = 5000;
-
-float pianhang_state_zone2 = 0;
-float yangjiao_state_zone2 = 0;
-float sheqiu_servo_zone2 = 395;
-float mocalun_speed_zone2 = 5000;
-
-float pianhang_state_zone3 = 0;
-float yangjiao_state_zone3 = 0;
-float sheqiu_servo_zone3 = 395;
-float mocalun_speed_zone3 = 5000;
-
-float pianhang_state_zone4 = 0;
-float yangjiao_state_zone4 = 0;
-float sheqiu_servo_zone4 = 395;
-float mocalun_speed_zone4 = 5000;
-
-float pianhang_state_zone5 = 0;
-float yangjiao_state_zone5 = 0;
-float sheqiu_servo_zone5 = 395;
-float mocalun_speed_zone5 = 5000;
-
-float pianhang_state_zone6 = 0;
-float yangjiao_state_zone6 = 0;
-float sheqiu_servo_zone6 = 395;
-float mocalun_speed_zone6 = 5000;
-
-float pianhang_state_zone7 = 0;
-float yangjiao_state_zone7 = 0;
-float sheqiu_servo_zone7 = 395;
-float mocalun_speed_zone7 = 5000;
-
-float pianhang_state_zone8 = 0;
-float yangjiao_state_zone8 = 0;
-float sheqiu_servo_zone8 = 395;
-float mocalun_speed_zone8 = 5000;
-
-float pianhang_state_zone9 = 0;
-float yangjiao_state_zone9 = 0;
-float sheqiu_servo_zone9 = 395;
-float mocalun_speed_zone9 = 5000;
-
-float pianhang_state_zone10 = 0;
-float yangjiao_state_zone10 = 0;
-float sheqiu_servo_zone10 = 395;
-float mocalun_speed_zone10 = 5000;
-
-float pianhang_state_zone11 = 0;
-float yangjiao_state_zone11 = 0;
-float sheqiu_servo_zone11 = 395;
-float mocalun_speed_zone11 = 5000;
-
-float pianhang_state_zone12 = 0;
-float yangjiao_state_zone12 = 0;
-float sheqiu_servo_zone12 = 395;
-float mocalun_speed_zone12 = 5000;
-
-float pianhang_state_zone13 = 0;
-float yangjiao_state_zone13 = 0;
-float sheqiu_servo_zone13 = 395;
-float mocalun_speed_zone13 = 5000;
-
-float pianhang_state_zone14 = 0;
-float yangjiao_state_zone14 = 0;
-float sheqiu_servo_zone14 = 395;
-float mocalun_speed_zone14 = 5000;
-
-float pianhang_state_zone15 = 0;
-float yangjiao_state_zone15 = 0;
-float sheqiu_servo_zone15 = 395;
-float mocalun_speed_zone15 = 5000;
-
-float pianhang_state_zone16 = 0;
-float yangjiao_state_zone16 = 0;
-float sheqiu_servo_zone16 = 395;
-float mocalun_speed_zone16 = 5000;
-
-float pianhang_state_zone17 = 0;
-float yangjiao_state_zone17 = 0;
-float sheqiu_servo_zone17 = 395;
-float mocalun_speed_zone17 = 5000;
-
-float pianhang_state_zone18 = 0;
-float yangjiao_state_zone18= 0;
-float sheqiu_servo_zone18 = 395;
-float mocalun_speed_zone18 = 5000;
-
-float pianhang_state_zone19 = 0;
-float yangjiao_state_zone19 = 0;
-float sheqiu_servo_zone19 = 395;
-float mocalun_speed_zone19 = 5000;
-
-float pianhang_state_zone20 = 0;
-float yangjiao_state_zone20 = 0;
-float sheqiu_servo_zone20 = 395;
-float mocalun_speed_zone20 = 5000;
-
-float pianhang_state_zone21 = 0;
-float yangjiao_state_zone21 = 0;
-float sheqiu_servo_zone21 = 395;
-float mocalun_speed_zone21 = 5000;
-
-float pianhang_state_zone22 = 0;
-float yangjiao_state_zone22 = 0;
-float sheqiu_servo_zone22 = 395;
-float mocalun_speed_zone22 = 5000;
-
-float pianhang_state_zone23 = 0;
-float yangjiao_state_zone23 = 0;
-float sheqiu_servo_zone23 = 395;
-float mocalun_speed_zone23 = 5000;
-
-float pianhang_state_zone24 = 0;
-float yangjiao_state_zone24 = 0;
-float sheqiu_servo_zone24 = 395;
-float mocalun_speed_zone24 = 5000;
-
-float pianhang_state_zone25 = 0;
-float yangjiao_state_zone25 = 0;
-float sheqiu_servo_zone25 = 395;
-float mocalun_speed_zone25 = 5000;
+float pianhang_state_zone[26] = {55.649,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+float yangjiao_state_zone[26] = {-24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+float sheqiu_servo_zone[26]  =  {383,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+float mocalun_speed_zone[26] =  {5000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 float fetch_state = 0;
 float mocalun_state = 0;
@@ -295,7 +170,7 @@ int main(void)
 	HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
 	__HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, pwm_init);
 	
-	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_12,1);
+	HAL_GPIO_WritePin(GPIOE,GPIO_PIN_12,GPIO_PIN_SET);
   
   RS485_init();
   /* USER CODE END 2 */
@@ -309,10 +184,10 @@ int main(void)
     }
 		if(state == 0)
 		{
-     	if((Raw_Data.ch2-1024)>100) pitch += 0.05;/*==================================================================*/
-			if((Raw_Data.ch2-1024)<-100) pitch -= 0.05;/*==================================================================*/
-			if((Raw_Data.ch3-1024)>100) yaw -= 0.1;/*==================================================================*/
-			if((Raw_Data.ch3-1024)<-100) yaw += 0.1;/*==================================================================*/
+     	if((Raw_Data.ch2-1024)>100) pitch += 0.05f;/*==================================================================*/
+			if((Raw_Data.ch2-1024)<-100) pitch -= 0.05f;/*==================================================================*/
+			if((Raw_Data.ch3-1024)>100) yaw -= 0.1f;/*==================================================================*/
+			if((Raw_Data.ch3-1024)<-100) yaw += 0.1f;/*==================================================================*/
 			
 			if((Raw_Data.ch0-1024)>100) fetch = 100;/*==================================================================*/
 			else if((Raw_Data.ch0-1024)<-100) fetch = -100;/*==================================================================*/
@@ -353,136 +228,10 @@ int main(void)
 			speedServo(-mocalun_state,&hDJI[2]);
 			speedServo(-mocalun_state,&hDJI[3]);
 			positionServo(fetch_state,&hDJI[4]);
-			if(zone == 0)
-			{
-			positionServo(yangjiao_state_zone0,&hDJI[5]);
-			positionServo(pianhang_state_zone0,&hDJI[6]);
-			}	
-			else if(zone == 1)
-			{
-			positionServo(yangjiao_state_zone1,&hDJI[5]);
-			positionServo(pianhang_state_zone1,&hDJI[6]);
-			}	
-			else if(zone == 2)
-			{
-			positionServo(yangjiao_state_zone2,&hDJI[5]);
-			positionServo(pianhang_state_zone2,&hDJI[6]);
-			}	
-      else if(zone == 3)
-			{
-			positionServo(yangjiao_state_zone3,&hDJI[5]);
-			positionServo(pianhang_state_zone3,&hDJI[6]);
-			}	
-      else if(zone == 4)
-			{
-			positionServo(yangjiao_state_zone4,&hDJI[5]);
-			positionServo(pianhang_state_zone4,&hDJI[6]);
-			}	
-      else if(zone == 5)
-			{
-			positionServo(yangjiao_state_zone5,&hDJI[5]);
-			positionServo(pianhang_state_zone5,&hDJI[6]);
-			}	
-      else if(zone == 6)
-			{
-			positionServo(yangjiao_state_zone6,&hDJI[5]);
-			positionServo(pianhang_state_zone6,&hDJI[6]);
-			}	
-      else if(zone == 7)
-			{
-			positionServo(yangjiao_state_zone7,&hDJI[5]);
-			positionServo(pianhang_state_zone7,&hDJI[6]);
-			}	
-      else if(zone == 8)
-			{
-			positionServo(yangjiao_state_zone8,&hDJI[5]);
-			positionServo(pianhang_state_zone8,&hDJI[6]);
-			}	
-      else if(zone == 9)
-			{
-			positionServo(yangjiao_state_zone9,&hDJI[5]);
-			positionServo(pianhang_state_zone9,&hDJI[6]);
-			}	
-      else if(zone == 10)
-			{
-			positionServo(yangjiao_state_zone10,&hDJI[5]);
-			positionServo(pianhang_state_zone10,&hDJI[6]);
-			}	
-      else if(zone == 11)
-			{
-			positionServo(yangjiao_state_zone11,&hDJI[5]);
-			positionServo(pianhang_state_zone11,&hDJI[6]);
-			}	
-      else if(zone == 12)
-			{
-			positionServo(yangjiao_state_zone12,&hDJI[5]);
-			positionServo(pianhang_state_zone12,&hDJI[6]);
-			}
-      else if(zone == 13)
-			{
-			positionServo(yangjiao_state_zone13,&hDJI[5]);
-			positionServo(pianhang_state_zone13,&hDJI[6]);
-			}	
-			else if(zone == 14)
-			{
-			positionServo(yangjiao_state_zone14,&hDJI[5]);
-			positionServo(pianhang_state_zone14,&hDJI[6]);
-			}	
-      else if(zone == 15)
-			{
-			positionServo(yangjiao_state_zone15,&hDJI[5]);
-			positionServo(pianhang_state_zone15,&hDJI[6]);
-			}	
-      else if(zone == 16)
-			{
-			positionServo(yangjiao_state_zone16,&hDJI[5]);
-			positionServo(pianhang_state_zone16,&hDJI[6]);
-			}	
-      else if(zone == 17)
-			{
-			positionServo(yangjiao_state_zone17,&hDJI[5]);
-			positionServo(pianhang_state_zone17,&hDJI[6]);
-			}	
-      else if(zone == 18)
-			{
-			positionServo(yangjiao_state_zone18,&hDJI[5]);
-			positionServo(pianhang_state_zone18,&hDJI[6]);
-			}	
-      else if(zone == 19)
-			{
-			positionServo(yangjiao_state_zone19,&hDJI[5]);
-			positionServo(pianhang_state_zone19,&hDJI[6]);
-			}	
-      else if(zone == 20)
-			{
-			positionServo(yangjiao_state_zone20,&hDJI[5]);
-			positionServo(pianhang_state_zone20,&hDJI[6]);
-			}	
-      else if(zone == 21)
-			{
-			positionServo(yangjiao_state_zone21,&hDJI[5]);
-			positionServo(pianhang_state_zone21,&hDJI[6]);
-			}	
-      else if(zone == 22)
-			{
-			positionServo(yangjiao_state_zone22,&hDJI[5]);
-			positionServo(pianhang_state_zone22,&hDJI[6]);
-			}	
-      else if(zone == 23)
-			{
-			positionServo(yangjiao_state_zone23,&hDJI[5]);
-			positionServo(pianhang_state_zone23,&hDJI[6]);
-			}	
-      else if(zone == 24)
-			{
-			positionServo(yangjiao_state_zone24,&hDJI[5]);
-			positionServo(pianhang_state_zone24,&hDJI[6]);
-			}
-      else if(zone == 25)
-			{
-			positionServo(yangjiao_state_zone25,&hDJI[5]);
-			positionServo(pianhang_state_zone25,&hDJI[6]);
-			}
+			
+			positionServo(yangjiao_state_zone[zone],&hDJI[5]);
+			positionServo(pianhang_state_zone[zone],&hDJI[6]);
+			
 		}
 		//执行取球操作
 		else if(state == 1){
@@ -628,7 +377,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     if(state == 0 && last_state == 0)
 		{
 			if(Raw_Data.right == 2 && state == 0)
-      // if((button_E == 1 || button_C == 1) && button_B == 1)
+      // if((button_E == 1 || button_F == 1) && button_C == 1)
       {
         enter_time = time;
 				state = 1;
@@ -657,7 +406,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     //
 		{
       if(Raw_Data.left == 2 && state == 0)
-      // if((button_E == 1 || button_C == 1) && button_B == 1)
+      // if((button_E == 1 || button_F == 1) && button_C == 1)
       {
         enter_time = time;
 				state = 1;
@@ -669,78 +418,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 					{
           float mocalun_speed = 0;
           float sheqiu_servo = 395; 
-          switch (zone)
-          {
-            case /* constant-expression */0:
-            /* code */
-            mocalun_speed = mocalun_speed_zone0;
-            sheqiu_servo = sheqiu_servo_zone0;
-            break;
-            case /* constant-expression */1:
-            /* code */
-            mocalun_speed = mocalun_speed_zone1;
-            sheqiu_servo = sheqiu_servo_zone1;
-            break;
-            case /* constant-expression */2:
-            /* code */
-            mocalun_speed = mocalun_speed_zone2;
-            sheqiu_servo = sheqiu_servo_zone2;
-            break;
-            case /* constant-expression */3:
-            /* code */
-            mocalun_speed = mocalun_speed_zone3;
-            sheqiu_servo = sheqiu_servo_zone3;
-            break;
-            case /* constant-expression */4:
-            /* code */
-            mocalun_speed = mocalun_speed_zone4;
-            sheqiu_servo = sheqiu_servo_zone4;
-            break;
-            case /* constant-expression */5:
-            /* code */
-            mocalun_speed = mocalun_speed_zone5;
-            sheqiu_servo = sheqiu_servo_zone5;
-            break;
-            case /* constant-expression */6:
-            /* code */
-            mocalun_speed = mocalun_speed_zone6;
-            sheqiu_servo = sheqiu_servo_zone6;
-            break;
-            case /* constant-expression */7:
-            /* code */
-            mocalun_speed = mocalun_speed_zone7;
-            sheqiu_servo = sheqiu_servo_zone7;
-            break;
-            case /* constant-expression */8:
-            /* code */
-            mocalun_speed = mocalun_speed_zone8;
-            sheqiu_servo = sheqiu_servo_zone8;
-            break;
-            case /* constant-expression */9:
-            /* code */
-            mocalun_speed = mocalun_speed_zone9;
-            sheqiu_servo = sheqiu_servo_zone9;
-            break;
-            case /* constant-expression */10:
-            /* code */
-            mocalun_speed = mocalun_speed_zone10;
-            sheqiu_servo = sheqiu_servo_zone10;
-            break;
-            case /* constant-expression */11:
-            /* code */
-            mocalun_speed = mocalun_speed_zone11;
-            sheqiu_servo = sheqiu_servo_zone11;
-            break;
-            case /* constant-expression */12:
-            /* code */
-            mocalun_speed = mocalun_speed_zone12;
-            sheqiu_servo = sheqiu_servo_zone12;
-            break;
-          default:
-            mocalun_speed = 0;
-            sheqiu_servo = 395;
-            break;
-          }
+          
+          mocalun_speed = mocalun_speed_zone[zone];
+          sheqiu_servo = sheqiu_servo_zone[zone];
+            
           if((time - enter_time)<(500))
           {
             mocalun_state = 0;
