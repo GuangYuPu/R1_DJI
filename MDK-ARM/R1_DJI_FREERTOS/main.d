@@ -43,3 +43,4 @@ r1_dji_freertos\main.o: ../UC/wtr_can.h
 r1_dji_freertos\main.o: ../UC/wtr_uart.h
 r1_dji_freertos\main.o: ../UART_COM/nrf_com.h
 r1_dji_freertos\main.o: ../RS485/RS485.h
+r1_dji_freertos\main.o: D:\MDK\ARM\ARMCC\Bin\..\include\math.h

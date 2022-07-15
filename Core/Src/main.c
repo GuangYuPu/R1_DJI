@@ -34,6 +34,7 @@
 #include "nrf_com.h"
 #include "RS485.h"
 #include "main.h"
+#include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,7 +59,7 @@ int ifRecv_dji = 0;
 int ifRecv_RS485 = 0;
 int ifRecv_DiPan = 0;
 
-int pwm_init = 799;
+int pwm_init = 800;
 
 float speed = 0;
 float pitch = 0;
@@ -140,8 +141,6 @@ uint32_t enter_time = 0;
 uint32_t sj_time = 300;
 uint32_t zz_time = 1000;
 uint32_t waiting_time = 1000;
-float close_speed = -100;
-float open_speed = 60;
 
 //parameter for quqiu
 uint32_t sj_time_1 = 1500;
@@ -155,12 +154,7 @@ float close_pos = 0;
 
 uint32_t rs_decode_strart = 0;
 
-char flag = 0;//标志是否进入状�?? 
-/*状�?�机变换�????
-state = 0 状�??0 遥控器控制中间状�???? 初始态及其他任何状�?�之间的连接�????
-state = 1 状�??1 全自动取�????
-state = 2 状�??2 全自动射�???? 并准备取�?
-*/
+char flag = 0;
 uint32_t state = 0;
 uint32_t last_state = 0;
 /* USER CODE END PV */
@@ -168,12 +162,12 @@ uint32_t last_state = 0;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-void zz_sj_servo(float ref_rs_decode);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void zz_sj_servo(float ref_rs_decode);
 /* USER CODE END 0 */
 
 /**
@@ -181,7 +175,7 @@ void zz_sj_servo(float ref_rs_decode);
   * @retval int
   */
 int main(void)
-	{
+{
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -358,7 +352,7 @@ int main(void)
 			{
 			positionServo(yangjiao_state_zone12,&hDJI[5]);
 			positionServo(pianhang_state_zone12,&hDJI[6]);
-			}	
+			}
 		}
 		//执行取球操作
 		else if(state == 1){
@@ -471,14 +465,14 @@ void zz_sj_servo(float ref_rs_decode)
   //when rsdecode_exp = ref_rs_decode
             if(rs_decode < ref_rs_decode-2)//up
             {
-              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-ref_rs_decode)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, pwm_init);
+              if(fabs(rs_decode - rs_decode_strart)<200 || fabs(rs_decode-ref_rs_decode)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, pwm_init);
               else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 999);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_SET);
             }
             else if(rs_decode > ref_rs_decode+2)//down
             {
-              if(abs(rs_decode - rs_decode_strart)<200 || abs(rs_decode-ref_rs_decode)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 399);
+              if(fabs(rs_decode - rs_decode_strart)<200 || fabs(rs_decode-ref_rs_decode)<200) __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 399);
               else __HAL_TIM_SetCompare(&htim2, TIM_CHANNEL_1, 499);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_SET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
@@ -490,15 +484,6 @@ void zz_sj_servo(float ref_rs_decode)
             }
 }
 /* USER CODE END 4 */
-
-/**
-  * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM4 interrupt took place, inside
-  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   /* USER CODE BEGIN Callback 0 */
@@ -700,15 +685,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 
 	}
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM4) {
-    HAL_IncTick();
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
 }
-
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None

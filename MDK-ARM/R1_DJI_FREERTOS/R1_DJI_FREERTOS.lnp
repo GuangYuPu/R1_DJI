@@ -8,7 +8,6 @@
 "r1_dji_freertos\usart.o"
 "r1_dji_freertos\stm32f4xx_it.o"
 "r1_dji_freertos\stm32f4xx_hal_msp.o"
-"r1_dji_freertos\stm32f4xx_hal_timebase_tim.o"
 "r1_dji_freertos\caculate.o"
 "r1_dji_freertos\dji.o"
 "r1_dji_freertos\wtr_can.o"
