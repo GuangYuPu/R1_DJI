@@ -66,10 +66,10 @@ float pitch = 0;
 float yaw = 0;
 float fetch = 0;
 
-float pianhang_state_zone[26] = {55.649,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-float yangjiao_state_zone[26] = {-24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-float sheqiu_servo_zone[26]  =  {790,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-float mocalun_speed_zone[26] =  {5000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+float pianhang_state_zone[26] = {45.8495,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45.8495};
+float yangjiao_state_zone[26] = {11.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.2};
+float sheqiu_servo_zone[26]  =  {790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790};
+float mocalun_speed_zone[26] =  {5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000};
 
 float fetch_state = 0;
 float mocalun_state = 0;
@@ -376,14 +376,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{	
     if(state == 0 && last_state == 0)
 		{
-			if(Raw_Data.right == 2 && state == 0)
-      // if((button_E == 1 || button_F == 1) && button_C == 1)
+			//if(Raw_Data.right == 2 && state == 0)
+      if((button_E == 1 || button_F == 1) && button_C == 1 && state == 0)
       {
         enter_time = time;
 				state = 1;
 			}
-      if(Raw_Data.right == 1 && state == 0)
-      // if((button_E == 1 || button_F == 1) && button_B == 1)
+      //if(Raw_Data.right == 1 && state == 0)
+      if((button_E == 1 || button_F == 1) && button_B == 1 && state == 0)
       {
         enter_time = time;
 				state = 2;
@@ -393,8 +393,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     
 		if(state == 0 && last_state == 1)
 		{
-      if(Raw_Data.left == 1 && state == 0)
-      // if((button_E == 1 || button_F == 1) && button_B == 1)
+      //if(Raw_Data.left == 1 && state == 0)
+      if((button_E == 1 || button_F == 1) && button_B == 1 && state == 0)
       {
         enter_time = time;
 				state = 2;
@@ -403,10 +403,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
     
 		if(state == 0 && last_state == 2)
-    //
 		{
-      if(Raw_Data.left == 2 && state == 0)
-      // if((button_E == 1 || button_F == 1) && button_C == 1)
+      //if(Raw_Data.left == 2 && state == 0)
+      if((button_E == 1 || button_F == 1) && button_C == 1 && state == 0)
       {
         enter_time = time;
 				state = 1;
