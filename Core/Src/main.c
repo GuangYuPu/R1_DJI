@@ -66,8 +66,8 @@ float pitch = 0;
 float yaw = 0;
 float fetch = 0;
 
-float pianhang_state_zone[26] = {45.8495,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45.8495};
-float yangjiao_state_zone[26] = {11.2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.2};
+float pianhang_state_zone[26] = {46.8495,-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45.8495};
+float yangjiao_state_zone[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.2};
 float sheqiu_servo_zone[26]  =  {790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790};
 float mocalun_speed_zone[26] =  {5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000};
 
@@ -90,7 +90,7 @@ float close_speed_1 = -150;
 float open_speed_1 = 180;
 
 float open_pos = 22;
-float close_pos = -5;
+float close_pos = -12;
 
 uint32_t rs_decode_strart = 0;
 
@@ -189,9 +189,22 @@ int main(void)
 			if((Raw_Data.ch3-1024)>100) yaw -= 0.1f;/*==================================================================*/
 			if((Raw_Data.ch3-1024)<-100) yaw += 0.1f;/*==================================================================*/
 			
-			if((Raw_Data.ch0-1024)>100) fetch = 100;/*==================================================================*/
-			else if((Raw_Data.ch0-1024)<-100) fetch = -100;/*==================================================================*/
-			else fetch = 0;
+			if((Raw_Data.ch0-1024)>100) 
+			{
+				fetch = 150;/*==================================================================*/
+				speedServo(fetch,&hDJI[4]);
+			}
+				else if((Raw_Data.ch0-1024)<-100) 
+			{
+				fetch = -150;/*==================================================================*/
+				speedServo(fetch,&hDJI[4]);
+			}
+			else 
+			{	
+				fetch = 0;/*==================================================================*/
+				speedServo(fetch,&hDJI[4]);
+			}
+			
 			
 			if((Raw_Data.ch1-1024)>100) 
 			{
@@ -211,7 +224,7 @@ int main(void)
 			
 			positionServo(yaw,&hDJI[5]);
 			positionServo(pitch,&hDJI[6]);
-			speedServo(fetch,&hDJI[4]);
+			
 			
 			if(Raw_Data.right == 1) speed = 5000;
 			else speed = 0;
@@ -243,6 +256,18 @@ int main(void)
 			positionServo(0,&hDJI[5]);
 			positionServo(0,&hDJI[6]);
 			// positionServo(0,&hDJI[7]);
+		}
+		else if(state == 3)
+		{
+			speedServo(0,&hDJI[0]);
+			speedServo(0,&hDJI[1]);
+			speedServo(-0,&hDJI[2]);
+			speedServo(-0,&hDJI[3]);
+			positionServo(-8,&hDJI[4]);
+			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
+			positionServo(0,&hDJI[5]);
+			positionServo(0,&hDJI[6]);
 		}
 		
 		CanTransmit_DJI_1234(&hcan1,
@@ -374,43 +399,29 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /*有限�?*/
 	if (htim == (&htim3))
 	{	
-    if(state == 0 && last_state == 0)
-		{
-			//if(Raw_Data.right == 2 && state == 0)
-      if((button_E == 1 || button_F == 1) && button_C == 1 && state == 0)
+			if(Raw_Data.right == 2 && state == 0)
+      //if((button_E == 1 || button_F == 1) && button_C == 1 && state == 0)
       {
         enter_time = time;
 				state = 1;
 			}
-      //if(Raw_Data.right == 1 && state == 0)
-      if((button_E == 1 || button_F == 1) && button_B == 1 && state == 0)
+      if(Raw_Data.right == 1 && state == 0)
+      //if((button_E == 1 || button_F == 1) && button_B == 1 && state == 0)
       {
         enter_time = time;
 				state = 2;
 			}
-		}
+	}
 
     
-		if(state == 0 && last_state == 1)
+		if(state == 3)
 		{
-      //if(Raw_Data.left == 1 && state == 0)
-      if((button_E == 1 || button_F == 1) && button_B == 1 && state == 0)
+      if(Raw_Data.left == 1)
+      //if((button_E == 1 || button_F == 1) && button_B == 1 && state == 0)
       {
         enter_time = time;
 				state = 2;
 			}
-		}
-
-    
-		if(state == 0 && last_state == 2)
-		{
-      //if(Raw_Data.left == 2 && state == 0)
-      if((button_E == 1 || button_F == 1) && button_C == 1 && state == 0)
-      {
-        enter_time = time;
-				state = 1;
-			}
-      
 		}
     
         if(state == 2)
@@ -424,35 +435,35 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           if((time - enter_time)<(500))
           {
             mocalun_state = 0;
-            fetch_state = 0;
+            fetch_state = close_pos;
             if((time - enter_time)<(1)) rs_decode_strart = rs_decode;
             zz_sj_servo(720);
           }
           else if((time - enter_time)<(zz_time+500))//open mocalun and open the zhuazi
           {
             mocalun_state = mocalun_speed;
-            fetch_state = 0;
+            fetch_state = close_pos;
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
           }
           else if((time - enter_time)<(zz_time+sj_time+500))//up shenjiang
           {
             mocalun_state = mocalun_speed;
-            fetch_state = 0;
+            fetch_state = close_pos;
             if((time - enter_time)<(zz_time+500+1)) rs_decode_strart = rs_decode;
             zz_sj_servo(sheqiu_servo);
           }
           else if((time - enter_time)<(zz_time+sj_time+waiting_time+500))//wait for shooting
           {
             mocalun_state = mocalun_speed;
-            fetch_state = 0;
+            fetch_state = close_pos;
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
             HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
           }
           else if((time - enter_time)<(zz_time+sj_time+waiting_time+zz_time+500))//down shenjiang and open the zhuazi
           {
             mocalun_state = 0;
-            fetch_state = 0;
+            fetch_state = close_pos;
             if((time - enter_time)<(zz_time+sj_time+waiting_time+1+500)) rs_decode_strart = rs_decode;
             zz_sj_servo(665);
           }
@@ -476,7 +487,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           {
             fetch_state = open_pos;
             if((time - enter_time)<(1)) rs_decode_strart = rs_decode;
-            zz_sj_servo(580);
+            zz_sj_servo(570);
           }
           else if((time - enter_time)<(zz_time_1+500))//close zhuazi
           {
@@ -493,14 +504,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
           else{
 						fetch_state = close_pos;
             last_state = state;
-            state = 0;
+            state = 3;
             flag = 0;
           }
 			    }
 
 
 	}
-}
+
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None
