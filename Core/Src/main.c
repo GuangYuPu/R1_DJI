@@ -66,9 +66,9 @@ float pitch = 0;
 float yaw = 0;
 float fetch = 0;
 
-float pianhang_state_zone[26] = {46.8495,-5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45.8495};
-float yangjiao_state_zone[26] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.2};
-float sheqiu_servo_zone[26]  =  {790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790};
+float pianhang_state_zone[26] = {46.8495,-6,0,2,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45.8495};
+float yangjiao_state_zone[26] = {0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.2};
+float sheqiu_servo_zone[26]  =  {785,785,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790};
 float mocalun_speed_zone[26] =  {5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000};
 
 float fetch_state = 0;
@@ -399,13 +399,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /*有限�?*/
 	if (htim == (&htim3))
 	{	
-			if(Raw_Data.right == 2 && state == 0)
+			if((Raw_Data.right == 2 && state == 0) || ((button_E == 1 || button_F == 1) && button_C == 1 && state == 0))
       //if((button_E == 1 || button_F == 1) && button_C == 1 && state == 0)
       {
         enter_time = time;
 				state = 1;
 			}
-      if(Raw_Data.right == 1 && state == 0)
+      if((Raw_Data.right == 1 && state == 0) || ((button_E == 1 || button_F == 1) && button_B == 1 && state == 0))
       //if((button_E == 1 || button_F == 1) && button_B == 1 && state == 0)
       {
         enter_time = time;
@@ -416,8 +416,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
     
 		if(state == 3)
 		{
-      if(Raw_Data.left == 1)
-      //if((button_E == 1 || button_F == 1) && button_B == 1 && state == 0)
+      if((Raw_Data.left == 1) || ((button_E == 1 || button_F == 1) && button_B == 1 && state == 3))
+      //if((button_E == 1 || button_F == 1) && button_B == 1 && state == 3)
       {
         enter_time = time;
 				state = 2;
