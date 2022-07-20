@@ -62,12 +62,12 @@ int ifRecv_DiPan = 0;
 int pwm_init = 800;
 
 float speed = 0;
-float pitch = 0;
-float yaw = 0;
+float pitch_init = 0;
+float yaw_init = 0;
 float fetch = 0;
 
-float pianhang_state_zone[26] = {46.8495,-6,0,2,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45.8495};
-float yangjiao_state_zone[26] = {0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.2};
+float pianhang_state_zone[26] = {46.8495,-5,0,2,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,45.8495};
+float yangjiao_state_zone[26] = {1,8,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,11.2};
 float sheqiu_servo_zone[26]  =  {785,785,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790,790};
 float mocalun_speed_zone[26] =  {5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000};
 
@@ -184,10 +184,10 @@ int main(void)
     }
 		if(state == 0)
 		{
-     	if((Raw_Data.ch2-1024)>100) pitch += 0.05f;/*==================================================================*/
-			if((Raw_Data.ch2-1024)<-100) pitch -= 0.05f;/*==================================================================*/
-			if((Raw_Data.ch3-1024)>100) yaw -= 0.1f;/*==================================================================*/
-			if((Raw_Data.ch3-1024)<-100) yaw += 0.1f;/*==================================================================*/
+     	if((Raw_Data.ch2-1024)>100) pitch_init += 0.05f;/*==================================================================*/
+			if((Raw_Data.ch2-1024)<-100) pitch_init -= 0.05f;/*==================================================================*/
+			if((Raw_Data.ch3-1024)>100) yaw_init -= 0.1f;/*==================================================================*/
+			if((Raw_Data.ch3-1024)<-100) yaw_init += 0.1f;/*==================================================================*/
 			
 			if((Raw_Data.ch0-1024)>100) 
 			{
@@ -222,8 +222,8 @@ int main(void)
 				HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
 			}
 			
-			positionServo(yaw,&hDJI[5]);
-			positionServo(pitch,&hDJI[6]);
+			positionServo(yaw_init,&hDJI[5]);
+			positionServo(pitch_init,&hDJI[6]);
 			
 			
 			if(Raw_Data.right == 1) speed = 5000;
@@ -242,8 +242,8 @@ int main(void)
 			speedServo(-mocalun_state,&hDJI[3]);
 			positionServo(fetch_state,&hDJI[4]);
 			
-			positionServo(yangjiao_state_zone[zone],&hDJI[5]);
-			positionServo(pianhang_state_zone[zone],&hDJI[6]);
+			positionServo(yangjiao_state_zone[zone]+yaw_init,&hDJI[5]);
+			positionServo(pianhang_state_zone[zone]+pitch_init,&hDJI[6]);
 			
 		}
 		//执行取球操作
@@ -253,8 +253,8 @@ int main(void)
 			speedServo(0,&hDJI[2]);
 			speedServo(0,&hDJI[3]);
 			positionServo(fetch_state,&hDJI[4]);
-			positionServo(0,&hDJI[5]);
-			positionServo(0,&hDJI[6]);
+			positionServo(yaw_init,&hDJI[5]);
+			positionServo(pitch_init,&hDJI[6]);
 			// positionServo(0,&hDJI[7]);
 		}
 		else if(state == 3)
@@ -266,8 +266,8 @@ int main(void)
 			positionServo(-8,&hDJI[4]);
 			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_0,GPIO_PIN_RESET);
       HAL_GPIO_WritePin(GPIOB,GPIO_PIN_1,GPIO_PIN_RESET);
-			positionServo(0,&hDJI[5]);
-			positionServo(0,&hDJI[6]);
+			positionServo(yaw_init,&hDJI[5]);
+			positionServo(pitch_init,&hDJI[6]);
 		}
 		
 		CanTransmit_DJI_1234(&hcan1,
